@@ -5,6 +5,10 @@
  */
 package com.etl.views;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Nadeesha
@@ -189,9 +193,18 @@ public class HadoopCleansingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnStartCleansingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartCleansingActionPerformed
-        this.processProgressPanel.removeAll();
-        this.processProgressPanel.add(new HadoopEtlProcessPanel(), "HadoopEtlProcessPanel", 0);
-        this.processProgressPanel.revalidate();
+
+        try {
+            Runtime run = Runtime.getRuntime();
+            
+            run.exec("cmd start /c src/com/etl/pythonScripts/PPLCLS_4_run.bat");
+            
+            this.processProgressPanel.removeAll();
+            this.processProgressPanel.add(new HadoopEtlProcessPanel(), "HadoopEtlProcessPanel", 0);
+            this.processProgressPanel.revalidate();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnStartCleansingActionPerformed
 
 

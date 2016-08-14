@@ -21,7 +21,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         contentPanel.removeAll();
-        contentPanel.add(new ProjectDataExtractPanel(this), "ProjectDataExtractPanel", 0);
+        contentPanel.add(new HadoopCleansingPanel(this), "HadoopCleansingPanel", 0);
         contentPanel.revalidate();
         center();
         
