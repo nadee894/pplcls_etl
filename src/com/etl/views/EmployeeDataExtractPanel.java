@@ -23,7 +23,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
 /**
  *
  * @author Nadeesha
@@ -67,9 +66,6 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         selectedFileType = cb_selectFileType.getSelectedItem().toString();
         lblLoader.setVisible(false);
     }
-
-
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -343,66 +339,69 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRawDataActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        if (tf_chooseFile.getText().equals("")) {
-            Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(null, "Data file not selected!", "People Clues", JOptionPane.WARNING_MESSAGE);
-        } else {
-            try {
-                JOptionPane.showMessageDialog(null, "Uploading...", "People Clues", JOptionPane.INFORMATION_MESSAGE);
-                Runtime r = Runtime.getRuntime();
-                ArrayList<String> indexedOutput = new ArrayList<>();
-                Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData_working.py");
-                BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String line;
-                int count = 0;
-                String[] dataline = new String[76];
-                int result = 0;
-                while ((line = input.readLine()) != null) {
-                    line = line.trim();
+        Toolkit.getDefaultToolkit().beep();
+        int msg = JOptionPane.showConfirmDialog(null, "Are you sure? Once the data inserted to the database cannot be undone", "Confirmation!", JOptionPane.YES_NO_OPTION);
+        if (msg == JOptionPane.YES_OPTION) {
+            if (tf_chooseFile.getText().equals("")) {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Data file not selected!", "People Clues", JOptionPane.WARNING_MESSAGE);
+            } else {
+                try {
+                    JOptionPane.showMessageDialog(null, "Uploading...", "People Clues", JOptionPane.INFORMATION_MESSAGE);
+                    Runtime r = Runtime.getRuntime();
+                    ArrayList<String> indexedOutput = new ArrayList<>();
+                    Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData_working.py");
+                    BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                    String line;
+                    int count = 0;
+                    String[] dataline = new String[76];
+                    int result = 0;
+                    while ((line = input.readLine()) != null) {
+                        line = line.trim();
 
-                    if (line.isEmpty()) {
-                        dataline[count] = "NULL";
-                    } else {
-                        dataline[count] = line;
+                        if (line.isEmpty()) {
+                            dataline[count] = "NULL";
+                        } else {
+                            dataline[count] = line;
+                        }
+
+                        ++count;
+                        if (count == 76) {
+                            result = common.insertEmployeeMappedData(dataline, ITEmployeeAttributeMapperPanel.insertEmployeeMappedData());
+                            count = 0;
+                            dataline = new String[76];
+                            continue;
+                        }
+
                     }
 
-                    ++count;
-                    if (count == 76) {
-                        result = common.insertEmployeeMappedData(dataline, ITEmployeeAttributeMapperPanel.insertEmployeeMappedData());
-                        count = 0;
-                        dataline = new String[76];
-                        continue;
+                    if (result != 0) {
+                        try {
+                            new SoundController().playSound("s.wav");
+                            JOptionPane.showMessageDialog(null, "Uploading Succesfully Completed", "People Clues", 1);
+
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (LineUnavailableException ex) {
+                            Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (UnsupportedAudioFileException ex) {
+                            Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
 
+                    this.main.contentPanel.removeAll();
+                    this.main.contentPanel.add(new ProjectDataExtractPanel(this.main), "ProjectDataExtractPanel", 0);
+                    this.main.contentPanel.revalidate();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                if (result != 0) {
-                    try {
-                        new SoundController().playSound("s.wav");
-                        JOptionPane.showMessageDialog(null, "Uploading Succesfully Completed", "People Clues", 1);
-
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (LineUnavailableException ex) {
-                        Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (UnsupportedAudioFileException ex) {
-                        Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-
-                this.main.contentPanel.removeAll();
-                this.main.contentPanel.add(new ProjectDataExtractPanel(this.main), "ProjectDataExtractPanel", 0);
-                this.main.contentPanel.revalidate();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
-
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void tf_chooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_chooseFileActionPerformed
