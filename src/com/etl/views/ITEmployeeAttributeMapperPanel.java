@@ -25,9 +25,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
     public ITEmployeeAttributeMapperPanel(ArrayList<String> data) {
         initComponents();
         String[] attributes = getHeaders(data);
-        for (int i = 0; i < attributes.length; i++) {
-            System.out.println(attributes[i]);
-        }
+        
 
         //Load file types to the combo box
         for (int i = 0; i < 12; i++) {
@@ -60,7 +58,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
                 attributes[i] = attributes[i].replace("]", "");
 
             }
-            System.out.println(attributes.length);
+          
 
         } else {
             JOptionPane.showMessageDialog(null, "Data file is Empty!", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -70,11 +68,9 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
 
     public Integer[] insertEmployeeMappedData() {
         Integer[] mappedAttributes = new Integer[12];
-        System.out.println(cb_title.getSelectedItem());
-        int id = cb_id.getSelectedIndex();
-        System.out.println("id "+id);
-        int title = cb_title.getSelectedIndex();
-        System.out.println("title "+title);
+       
+        int id = cb_id.getSelectedIndex();       
+        int title = cb_title.getSelectedIndex();       
         int first_name = cb_firstName.getSelectedIndex();
         int last_name = cb_lastName.getSelectedIndex();
         int emp_gender = cb_empGender.getSelectedIndex();

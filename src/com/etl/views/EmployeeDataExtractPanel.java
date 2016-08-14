@@ -286,7 +286,6 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
             ex.printStackTrace();
         }
 
-//        JOptionPane.showMessageDialog(null, output.get(), "Warning", JOptionPane.WARNING_MESSAGE);
 
     }//GEN-LAST:event_extractActionPerformed
 
@@ -299,7 +298,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Data file not selected!", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-
+                JOptionPane.showMessageDialog(null, "Uploading...", "Data", JOptionPane.INFORMATION_MESSAGE);
                 Runtime r = Runtime.getRuntime();
                 ArrayList<String> indexedOutput = new ArrayList<>();
                 Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData_working.py");
@@ -309,8 +308,6 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                 String[] dataline = new String[76];
                 while ((line = input.readLine()) != null) {
                     line = line.trim();
-                    System.out.println(line);
-                    System.out.println("count -- " + count);
 
                     if (line.isEmpty()) {
                         dataline[count] = "NULL";
@@ -320,15 +317,14 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
 
                     ++count;
                     if (count == 76) {
-                        common.insertEmployeeMappedData(dataline,ITEmployeeAttributeMapperPanel.insertEmployeeMappedData());
+                        common.insertEmployeeMappedData(dataline, ITEmployeeAttributeMapperPanel.insertEmployeeMappedData());
                         count = 0;
                         dataline = new String[76];
                         continue;
                     }
 
                 }
-                System.out.println("Insertion completed");
-                
+                JOptionPane.showMessageDialog(null, "Uploading Succesfully Completed", "Data", JOptionPane.INFORMATION_MESSAGE);
 
                 this.main.contentPanel.removeAll();
                 this.main.contentPanel.add(new ProjectDataExtractPanel(this.main), "ProjectDataExtractPanel", 0);
