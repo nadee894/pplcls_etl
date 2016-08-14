@@ -31,7 +31,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         this.employeeDataExtractPanel = employeeDataExtractPanel;
 
         //Load file types to the combo box
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 76; i++) {
             cb_id.addItem(attributes[i]);
             cb_curExp.addItem(attributes[i]);
             cb_designation.addItem(attributes[i]);
@@ -389,11 +389,11 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
