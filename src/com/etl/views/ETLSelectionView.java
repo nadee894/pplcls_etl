@@ -30,6 +30,8 @@ public class ETLSelectionView extends javax.swing.JDialog {
         initComponents();
         center();
         this.main = main;
+        rbTraditionalEtl.setSelected(true);
+
     }
 
     /**
@@ -113,10 +115,14 @@ public class ETLSelectionView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        this.dispose();
-        this.main.contentPanel.removeAll();
-        this.main.contentPanel.add(new HadoopCleansingPanel(this.main), "HadoopCleansingPanel", 0);
-        this.main.contentPanel.revalidate();
+        if (rbTraditionalEtl.isSelected() == true) {
+
+        } else if (rbHadoopEtl.isSelected() == true) {
+            this.dispose();
+            this.main.contentPanel.removeAll();
+            this.main.contentPanel.add(new HadoopCleansingPanel(this.main), "HadoopCleansingPanel", 0);
+            this.main.contentPanel.revalidate();
+        }
     }//GEN-LAST:event_btnOkActionPerformed
 
     /**
@@ -160,7 +166,7 @@ public class ETLSelectionView extends javax.swing.JDialog {
             }
         });
     }
-    
+
     private void center() {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension dimension1 = getSize();
