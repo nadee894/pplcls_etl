@@ -47,7 +47,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("People Clues ETL Tool");
-        setIconImage(Toolkit.getDefaultToolkit().getImage("src//images//favicon.ico"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage("src//com//etl//images//favicon.ico"));
 
         stepsPanel.setBackground(new java.awt.Color(73, 162, 176));
 

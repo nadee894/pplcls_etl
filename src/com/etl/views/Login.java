@@ -64,7 +64,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("People Clues ETL Tool");
-        setIconImage(Toolkit.getDefaultToolkit().getImage("src//images//favicon.ico"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage("src//com//etl//images//favicon.ico"));
         setMinimumSize(new java.awt.Dimension(679, 430));
         setResizable(false);
 
@@ -287,7 +287,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void checkEmptyTextBox() {
-        if (!tfUserName.getText().equals("") & !tfPassword.equals("")) {
+        if ((!tfUserName.getText().equals("")) && (!tfPassword.getPassword().equals(""))) {
             btnLogin.setEnabled(true);
         } else {
             btnLogin.setEnabled(false);

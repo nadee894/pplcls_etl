@@ -51,6 +51,7 @@ public class ETLSelectionView extends javax.swing.JDialog {
         btnOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage("src//com//etl//images//favicon.ico"));
 
         jLabel1.setText("Select your preferred ETL Tool");
 

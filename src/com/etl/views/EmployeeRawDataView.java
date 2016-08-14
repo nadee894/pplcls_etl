@@ -78,7 +78,7 @@ public class EmployeeRawDataView extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("People Clues ETL Tool");
-        setIconImage(Toolkit.getDefaultToolkit().getImage("src//images//favicon.ico"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage("src//com//etl//images//favicon.ico"));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
