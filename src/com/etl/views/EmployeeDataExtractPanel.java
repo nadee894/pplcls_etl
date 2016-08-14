@@ -291,7 +291,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         output = new ArrayList<>();
 
         try {
-            Process p = r.exec(new String[]{"python", "python src/com/etl/pythonScripts/ExtractEmployeeData.py", selectedFilePath});
+            Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData.py");
             System.out.println("java " + selectedFilePath);
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
