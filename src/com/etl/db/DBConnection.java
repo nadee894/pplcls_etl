@@ -8,7 +8,6 @@ package com.etl.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -16,27 +15,26 @@ import java.util.logging.Logger;
  * @author Nadeesha
  */
 public class DBConnection {
-    private static String url = "jdbc:mysql://localhost:3306/pplcls";    
-    private static String driverName = "com.mysql.jdbc.Driver";   
-    private static String username = "root";   
-    private static String pasword = "";
-    private static Connection con;
-    
-    public static Connection getConnection() {
-        try {
-            Class.forName(driverName);
-            
-                con = DriverManager.getConnection(url, username, pasword);
-                
-            
-        } catch (ClassNotFoundException ex) {
-            // log an exception. for example:
-            System.out.println(ex +"Driver not found."); 
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+
+    private String url = "jdbc:mysql://localhost/pplcls";
+    private String username = "root";
+    private String password = "";
+    private static DBConnection dbCon;
+    private Connection con;
+
+    private DBConnection() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection(url, username, password);
+    }
+
+    private static DBConnection getDBConnection() throws ClassNotFoundException, SQLException {
+        if (dbCon == null) {
+            dbCon = new DBConnection();
         }
-        return con;
+        return dbCon;
+    }
+
+    public static Connection getConnectionToDB() throws ClassNotFoundException, SQLException {
+        return getDBConnection().con;
     }
 }
-    
-

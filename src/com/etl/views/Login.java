@@ -6,10 +6,20 @@
 package com.etl.views;
 
 import com.etl.controllers.Common;
-import com.etl.controllers.cntrl_login;
+import com.etl.controllers.LoginController;
+import com.etl.models.User;
+import com.etl.sound.SoundController;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -17,9 +27,9 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    cntrl_login login;
+    LoginController login;
     String userName, password;
-    Common common = new Common();
+    LoginController logiInController = new LoginController();
 
     /**
      * Creates new form view_login
@@ -42,9 +52,9 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        tf_password = new javax.swing.JPasswordField();
-        tf_userName = new javax.swing.JTextField();
+        btnLogin = new javax.swing.JButton();
+        tfPassword = new javax.swing.JPasswordField();
+        tfUserName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -68,11 +78,34 @@ public class Login extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(300, 312));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setBackground(new java.awt.Color(255, 255, 255));
+        btnLogin.setText("login");
+        btnLogin.setEnabled(false);
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
+            }
+        });
+
+        tfPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfPasswordActionPerformed(evt);
+            }
+        });
+        tfPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPasswordKeyReleased(evt);
+            }
+        });
+
+        tfUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfUserNameActionPerformed(evt);
+            }
+        });
+        tfUserName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfUserNameKeyReleased(evt);
             }
         });
 
@@ -93,12 +126,12 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel3)
-                        .addComponent(tf_userName, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
-                        .addComponent(tf_password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
         );
         jPanel2Layout.setVerticalGroup(
@@ -107,16 +140,16 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tf_userName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tf_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnLogin)
                     .addComponent(jLabel6))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(73, 162, 176));
@@ -140,7 +173,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(79, 79, 79)))
                 .addContainerGap())
         );
@@ -150,7 +183,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -196,19 +229,27 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        checkingPassword();
+    }//GEN-LAST:event_btnLoginActionPerformed
 
-        boolean auth = common.login(tf_userName.getText(), tf_password.getText());
-        if (auth == true) {
-            JOptionPane.showMessageDialog(null, "Succesfully logged in!", "Authentication", JOptionPane.INFORMATION_MESSAGE);
-            new Main().setVisible(true);
-            this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "Invalid Login Credentials,Try again!", "Authentication", JOptionPane.ERROR_MESSAGE);
-        }
+    private void tfUserNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfUserNameKeyReleased
+        checkEmptyTextBox();
 
+    }//GEN-LAST:event_tfUserNameKeyReleased
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void tfPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPasswordKeyReleased
+        password = new String(tfPassword.getPassword());
+        checkEmptyTextBox();
+    }//GEN-LAST:event_tfPasswordKeyReleased
+
+    private void tfUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUserNameActionPerformed
+        checkingPassword();
+    }//GEN-LAST:event_tfUserNameActionPerformed
+
+    private void tfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPasswordActionPerformed
+        checkingPassword();
+    }//GEN-LAST:event_tfPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,6 +286,14 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
+    private void checkEmptyTextBox() {
+        if (!tfUserName.getText().equals("") & !tfPassword.equals("")) {
+            btnLogin.setEnabled(true);
+        } else {
+            btnLogin.setEnabled(false);
+        }
+    }
+
     private void center() {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension dimension1 = getSize();
@@ -253,8 +302,50 @@ public class Login extends javax.swing.JFrame {
         setLocation(x, y);
     }
 
+    private void checkingPassword() {
+        try {
+            User user = logiInController.findLogIn(tfUserName.getText());
+            if (user != null) {
+                if (tfUserName.getText().equals(user.getEmail())) {
+                    try {
+                        new SoundController().playSound("s.wav");
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (LineUnavailableException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (UnsupportedAudioFileException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    JOptionPane.showMessageDialog(null, "LogIn Successfully !", "People Clues", 1);
+                    this.dispose();
+
+                    new Main().setVisible(true);
+
+                } else {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Password not Valid !", "People Clues", 0);
+                    tfPassword.setText("");
+                    btnLogin.setEnabled(false);
+                }
+            } else {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "UserName not Valid !", "People Clues", 0);
+                tfUserName.setText(null);
+                tfPassword.setText(null);
+                btnLogin.setEnabled(false);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -264,7 +355,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField tf_password;
-    private javax.swing.JTextField tf_userName;
+    private javax.swing.JPasswordField tfPassword;
+    private javax.swing.JTextField tfUserName;
     // End of variables declaration//GEN-END:variables
 }

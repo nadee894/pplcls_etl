@@ -69182,7 +69182,7 @@ CREATE TABLE `dim_hproject` (
   `type` varchar(45) DEFAULT NULL,
   `is_team_assigned` int(11) DEFAULT '0' COMMENT '0 = Not Assigned, 1 = Assigned',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp  NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -69328,7 +69328,7 @@ INSERT INTO `dim_hskilloptions` (`id`, `option`) VALUES
 CREATE TABLE `dim_htechnology` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
