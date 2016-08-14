@@ -18,7 +18,8 @@ def extractData(selectedFilePath):
         except csv.Error as e:
             sys.exit('file %s, line %d: %s' % (filename, reader.line_num, e))
 
-extractData('D:\Important\Research Final Year\Research going on work\NBQSA\pythin scripts\Python\Data Extraction\employee_data.csv')
+#extractData('D:\Important\Research Final Year\Research going on work\NBQSA\pythin scripts\Python\Data Extraction\employee_data.csv')
+#extractData('C:\Users\Gaya\Desktop\etl data\etl_data.csv')
 #read csv data and extract
 #csvDataTable = etl.fromcsv('D:\Important\Research work\NBQSA\pythin scripts\RAW_DATA\employee_data.csv')
 #filename = 'D:\Important\Research work\NBQSA\pythin scripts\RAW_DATA\employee_data.csv'

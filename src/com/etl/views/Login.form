@@ -254,7 +254,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="put text here"/>
+                <Property name="text" type="java.lang.String" value="What is People Clues? It&apos;s an Business intelligence tool which syndicates operational data with analytical tools to present complex and competitive information to decision makers, in order to dynamically select the best team for a given project"/>
               </Properties>
             </Component>
           </SubComponents>

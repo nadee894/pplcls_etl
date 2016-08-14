@@ -31,7 +31,8 @@ public class Starter {
             
             UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
             
-            new Login().setVisible(true);
+            //new Login().setVisible(true);
+            new Main().setVisible(true);
         } catch (ParseException ex) {
             Logger.getLogger(Starter.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedLookAndFeelException ex) {
