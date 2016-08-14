@@ -67,10 +67,10 @@
                   <Component id="jPanel2" min="-2" pref="314" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
               </Group>
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="731" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -214,7 +214,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel5" pref="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel4" max="32767" attributes="0"/>
+                              <Component id="jLabel4" pref="197" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -242,7 +242,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="What is people clues ?"/>
+                <Property name="text" type="java.lang.String" value="What is People Clues?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
@@ -254,7 +254,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="What is People Clues? It&apos;s an Business intelligence tool which syndicates operational data with analytical tools to present complex and competitive information to decision makers, in order to dynamically select the best team for a given project"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt; It&apos;s an Business intelligence tool which syndicates &lt;/br&gt;operational data with analytical tools to &lt;/br&gt;present complex and competitive information&lt;/br&gt; to decision makers, in order to &lt;/br&gt; dynamically select the best team for a given project&lt;/br&gt;  &lt;/html&gt;"/>
               </Properties>
             </Component>
           </SubComponents>

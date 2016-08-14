@@ -19,6 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -39,6 +41,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     CommonController common = new CommonController();
     ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel;
     String[] mappedColumns;
+    final ImageIcon icon = new ImageIcon("src//com//etl//images//loader.gif");
 
     public EmployeeDataExtractPanel() {
         initComponents();
@@ -327,6 +330,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
             this.employeeAttributeMapper.revalidate();
 
             btnRawData.setVisible(true);
+            lblLoader.setVisible(false);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -347,18 +351,20 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Data file not selected!", "People Clues", JOptionPane.WARNING_MESSAGE);
             } else {
                 try {
-                    JOptionPane.showMessageDialog(null, "Uploading...", "People Clues", JOptionPane.INFORMATION_MESSAGE);
                     Runtime r = Runtime.getRuntime();
                     ArrayList<String> indexedOutput = new ArrayList<>();
                     Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData_working.py");
                     BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
                     String line;
-                    int count = 0;
+                    Integer count = 0;
+                    JOptionPane.showMessageDialog(null, "Data Extracting... " + count, "People Clues", JOptionPane.INFORMATION_MESSAGE, icon);
+                    Uploader up = new Uploader();
+                    up.setVisible(true);
                     String[] dataline = new String[76];
                     int result = 0;
+
                     while ((line = input.readLine()) != null) {
                         line = line.trim();
-
                         if (line.isEmpty()) {
                             dataline[count] = "NULL";
                         } else {
@@ -387,11 +393,13 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                         } catch (UnsupportedAudioFileException ex) {
                             Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                        up.setVisible(false);
+
+                        this.main.contentPanel.removeAll();
+                        this.main.contentPanel.add(new ProjectDataExtractPanel(this.main), "ProjectDataExtractPanel", 0);
+                        this.main.contentPanel.revalidate();
                     }
 
-                    this.main.contentPanel.removeAll();
-                    this.main.contentPanel.add(new ProjectDataExtractPanel(this.main), "ProjectDataExtractPanel", 0);
-                    this.main.contentPanel.revalidate();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 } catch (ClassNotFoundException ex) {
