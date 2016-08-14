@@ -39,7 +39,7 @@
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Component id="jPanel2" alignment="0" pref="807" max="32767" attributes="0"/>
+              <Component id="jPanel2" alignment="0" pref="809" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -164,7 +164,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Choose File For Employee Data Extraction"/>
+            <Property name="text" type="java.lang.String" value="Choose File For Employee Data Extraction "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cb_selectFileType">
