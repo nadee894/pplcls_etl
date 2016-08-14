@@ -22,6 +22,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.python.core.PyInstance;
+import org.python.util.PythonInterpreter;
 
 /**
  *
@@ -39,6 +41,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     CommonController common = new CommonController();
     ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel;
     String[] mappedColumns;
+    PythonInterpreter interpreter = null;
 
     public EmployeeDataExtractPanel() {
         initComponents();
@@ -64,6 +67,15 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         }
         //Get the selected File type
         selectedFileType = cb_selectFileType.getSelectedItem().toString();
+        this.interpreter = new PythonInterpreter();
+    }
+
+    void execfile(final String fileName) {
+        this.interpreter.execfile(fileName);
+    }
+
+    PyInstance createClass(final String className, final String opts) {
+        return (PyInstance) this.interpreter.eval(className + "(" + opts + ")");
     }
 
     /**
@@ -279,19 +291,20 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         output = new ArrayList<>();
 
         try {
-            Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData.py");
+            Process p = r.exec(new String[]{"python", "python src/com/etl/pythonScripts/ExtractEmployeeData.py", selectedFilePath});
+            System.out.println("java " + selectedFilePath);
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
             while ((line = input.readLine()) != null) {
                 output.add(line);
 
             }
-            ITEmployeeAttributeMapperPanel = new ITEmployeeAttributeMapperPanel(output,this);
+            ITEmployeeAttributeMapperPanel = new ITEmployeeAttributeMapperPanel(output, this);
 
             this.employeeAttributeMapper.removeAll();
             this.employeeAttributeMapper.add(ITEmployeeAttributeMapperPanel, "ITEmployeeAttributeMapperPanel", 0);
             this.employeeAttributeMapper.revalidate();
-            
+
             btnRawData.setVisible(true);
         } catch (IOException ex) {
             ex.printStackTrace();

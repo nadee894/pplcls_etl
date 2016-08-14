@@ -7,6 +7,7 @@ import sys
 # Function definition is here
 
 def extractData(selectedFilePath):
+    print selectedFilePath
     csvDataTable = etl.fromcsv(selectedFilePath)
     filename = selectedFilePath
 #Print csv data
