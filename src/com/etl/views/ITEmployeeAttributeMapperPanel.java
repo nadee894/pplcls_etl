@@ -31,20 +31,20 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         this.employeeDataExtractPanel = employeeDataExtractPanel;
 
         //Load file types to the combo box
-        for (int i = 0; i < 76; i++) {
-            cb_id.addItem(attributes[i]);
-            cb_curExp.addItem(attributes[i]);
-            cb_designation.addItem(attributes[i]);
-            cb_eduQual.addItem(attributes[i]);
-            cb_email.addItem(attributes[i]);
-            cb_empGender.addItem(attributes[i]);
-            cb_firstName.addItem(attributes[i]);
-            cb_age.addItem(attributes[i]);
-            cb_lastName.addItem(attributes[i]);
-            cb_isPmp.addItem(attributes[i]);
-            cb_pastExp.addItem(attributes[i]);
-            cb_title.addItem(attributes[i]);
-        }
+//        for (int i = 0; i < 76; i++) {
+//            cb_id.addItem(attributes[i]);
+//            cb_curExp.addItem(attributes[i]);
+//            cb_designation.addItem(attributes[i]);
+//            cb_eduQual.addItem(attributes[i]);
+//            cb_email.addItem(attributes[i]);
+//            cb_empGender.addItem(attributes[i]);
+//            cb_firstName.addItem(attributes[i]);
+//            cb_age.addItem(attributes[i]);
+//            cb_lastName.addItem(attributes[i]);
+//            cb_isPmp.addItem(attributes[i]);
+//            cb_pastExp.addItem(attributes[i]);
+//            cb_title.addItem(attributes[i]);
+//        }
         this.employeeDataExtractPanel.btnNext.setEnabled(true);
     }
 
