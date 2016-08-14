@@ -43,6 +43,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     public EmployeeDataExtractPanel() {
         initComponents();
         btnPreviouse.setVisible(false);
+        btnRawData.setVisible(false);
         //Load file types to the combo box
         for (int i = 0; i < properties.FILE_TYPES.length; i++) {
             cb_selectFileType.addItem(properties.FILE_TYPES[i]);
@@ -55,6 +56,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     public EmployeeDataExtractPanel(Main main) {
         initComponents();
         btnPreviouse.setVisible(false);
+        btnRawData.setVisible(false);
         this.main = main;
         //Load file types to the combo box
         for (int i = 0; i < properties.FILE_TYPES.length; i++) {
@@ -289,6 +291,8 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
             this.employeeAttributeMapper.removeAll();
             this.employeeAttributeMapper.add(ITEmployeeAttributeMapperPanel, "ITEmployeeAttributeMapperPanel", 0);
             this.employeeAttributeMapper.revalidate();
+            
+            btnRawData.setVisible(true);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

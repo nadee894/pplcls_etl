@@ -49,7 +49,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         }
         //Get the selected File type
         selectedFileType = cb_selectFileType.getSelectedItem().toString();
-
+        btnRawData.setVisible(false);
     }
 
     public ProjectDataExtractPanel(Main main) {
@@ -61,6 +61,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         }
         //Get the selected File type
         selectedFileType = cb_selectFileType.getSelectedItem().toString();
+        btnRawData.setVisible(false);
     }
 
     /**
@@ -283,6 +284,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
             this.projectAttributeMapper.removeAll();
             this.projectAttributeMapper.add(ITProjectAttributeMapperPanel, "ITProjectAttributeMapperPanel", 0);
             this.projectAttributeMapper.revalidate();
+            btnRawData.setVisible(true);
 
         } catch (IOException ex) {
             ex.printStackTrace();
