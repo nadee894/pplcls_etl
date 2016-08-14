@@ -5,6 +5,7 @@
  */
 package com.etl.views;
 
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
 
+    private ProjectDataExtractPanel projectDataExtractPanel;
     /**
      * Creates new form ITEmployeeAttributeMapperPanel
      */
@@ -21,8 +23,9 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public ITProjectAttributeMapperPanel(ArrayList<String> data) {
+    public ITProjectAttributeMapperPanel(ArrayList<String> data, ProjectDataExtractPanel projectDataExtractPanel) {
         initComponents();
+        this.projectDataExtractPanel = projectDataExtractPanel;
         String[] attributes = getHeaders(data);
         for (int i = 0; i < attributes.length; i++) {
 
@@ -45,6 +48,8 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
             cb_empWrkActEndDate.addItem(attributes[i]);
 
         }
+        
+        this.projectDataExtractPanel.btnNext.setEnabled(true);
     }
 
     public String[] getHeaders(ArrayList<String> data) {
@@ -66,7 +71,8 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
 
 
         } else {
-            JOptionPane.showMessageDialog(null, "Data file is Empty!", "Warning", JOptionPane.WARNING_MESSAGE);
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Data file is Empty!", "People Clues", JOptionPane.WARNING_MESSAGE);
         }
         return attributes;
 

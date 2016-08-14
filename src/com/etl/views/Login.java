@@ -5,7 +5,7 @@
  */
 package com.etl.views;
 
-import com.etl.controllers.Common;
+import com.etl.controllers.CommonController;
 import com.etl.controllers.LoginController;
 import com.etl.models.User;
 import com.etl.sound.SoundController;

@@ -21,10 +21,10 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         contentPanel.removeAll();
-        contentPanel.add(new HadoopCleansingPanel(this), "HadoopCleansingPanel", 0);
+        contentPanel.add(new EmployeeDataExtractPanel(this), "EmployeeDataExtractPanel", 0);
         contentPanel.revalidate();
         center();
-        
+
     }
 
     /**
@@ -38,45 +38,48 @@ public class Main extends javax.swing.JFrame {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         stepsPanel = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnEmployeeDataExtractionStep = new javax.swing.JButton();
+        btnProjectDataExtractionStep = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        btnProcessDataStep = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("People Clues ETL Tool");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setIconImage(Toolkit.getDefaultToolkit().getImage("src//com//etl//images//favicon.ico"));
 
         stepsPanel.setBackground(new java.awt.Color(73, 162, 176));
 
-        jButton3.setBackground(new java.awt.Color(73, 162, 176));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("1. Extract Employee Data");
-        jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnEmployeeDataExtractionStep.setBackground(new java.awt.Color(73, 162, 176));
+        btnEmployeeDataExtractionStep.setForeground(new java.awt.Color(255, 255, 255));
+        btnEmployeeDataExtractionStep.setText("1. Employee Data Extraction");
+        btnEmployeeDataExtractionStep.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnEmployeeDataExtractionStep.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEmployeeDataExtractionStep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnEmployeeDataExtractionStepActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(73, 162, 176));
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("2. Extract Project Data");
-        jButton5.setToolTipText("");
-        jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnProjectDataExtractionStep.setBackground(new java.awt.Color(73, 162, 176));
+        btnProjectDataExtractionStep.setForeground(new java.awt.Color(255, 255, 255));
+        btnProjectDataExtractionStep.setText("2. Project Data Extraction");
+        btnProjectDataExtractionStep.setToolTipText("");
+        btnProjectDataExtractionStep.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnProjectDataExtractionStep.setEnabled(false);
+        btnProjectDataExtractionStep.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/etl/images/small logo.png"))); // NOI18N
 
-        jButton6.setBackground(new java.awt.Color(73, 162, 176));
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("3. Process Data");
-        jButton6.setToolTipText("");
-        jButton6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnProcessDataStep.setBackground(new java.awt.Color(73, 162, 176));
+        btnProcessDataStep.setForeground(new java.awt.Color(255, 255, 255));
+        btnProcessDataStep.setText("3. Process Data");
+        btnProcessDataStep.setToolTipText("");
+        btnProcessDataStep.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnProcessDataStep.setEnabled(false);
+        btnProcessDataStep.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout stepsPanelLayout = new javax.swing.GroupLayout(stepsPanel);
         stepsPanel.setLayout(stepsPanelLayout);
@@ -86,9 +89,9 @@ public class Main extends javax.swing.JFrame {
             .addGroup(stepsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(stepsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnProjectDataExtractionStep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEmployeeDataExtractionStep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnProcessDataStep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         stepsPanelLayout.setVerticalGroup(
@@ -96,11 +99,11 @@ public class Main extends javax.swing.JFrame {
             .addGroup(stepsPanelLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEmployeeDataExtractionStep, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnProjectDataExtractionStep, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnProcessDataStep, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(439, Short.MAX_VALUE))
         );
 
@@ -128,7 +131,7 @@ public class Main extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addComponent(stepsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(623, Short.MAX_VALUE))
+                .addContainerGap(616, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
@@ -164,9 +167,9 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnEmployeeDataExtractionStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeDataExtractionStepActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnEmployeeDataExtractionStepActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,14 +201,14 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                Main m=new Main();
+
+                Main m = new Main();
                 m.setVisible(true);
-                
+
             }
         });
     }
-    
+
     private void center() {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension dimension1 = getSize();
@@ -215,10 +218,10 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEmployeeDataExtractionStep;
+    private javax.swing.JButton btnProcessDataStep;
+    private javax.swing.JButton btnProjectDataExtractionStep;
     public javax.swing.JPanel contentPanel;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;

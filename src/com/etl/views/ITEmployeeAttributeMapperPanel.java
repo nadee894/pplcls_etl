@@ -6,6 +6,7 @@
 package com.etl.views;
 
 import java.awt.List;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
  * @author Gaya
  */
 public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
+    
+    private EmployeeDataExtractPanel employeeDataExtractPanel;
 
     /**
      * Creates new form ITEmployeeAttributeMapperPanel
@@ -22,10 +25,10 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public ITEmployeeAttributeMapperPanel(ArrayList<String> data) {
+    public ITEmployeeAttributeMapperPanel(ArrayList<String> data, EmployeeDataExtractPanel employeeDataExtractPanel) {
         initComponents();
         String[] attributes = getHeaders(data);
-        
+        this.employeeDataExtractPanel = employeeDataExtractPanel;
 
         //Load file types to the combo box
         for (int i = 0; i < 12; i++) {
@@ -42,7 +45,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
             cb_pastExp.addItem(attributes[i]);
             cb_title.addItem(attributes[i]);
         }
-
+        this.employeeDataExtractPanel.btnNext.setEnabled(true);
     }
 
     public String[] getHeaders(ArrayList<String> data) {
@@ -61,7 +64,8 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
           
 
         } else {
-            JOptionPane.showMessageDialog(null, "Data file is Empty!", "Warning", JOptionPane.WARNING_MESSAGE);
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Data file is Empty!", "People Clues", JOptionPane.WARNING_MESSAGE);
         }
         return attributes;
     }
@@ -291,7 +295,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cb_pastExp, 0, 247, Short.MAX_VALUE)
                             .addComponent(cb_empGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -389,7 +393,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 496, Short.MAX_VALUE))
+                .addGap(0, 119, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

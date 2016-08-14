@@ -5,13 +5,21 @@
  */
 package com.etl.views;
 
-import com.etl.controllers.Common;
+import com.etl.controllers.CommonController;
 import com.etl.controllers.fileConverter;
 import com.etl.controllers.properties;
+import com.etl.sound.SoundController;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -29,7 +37,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
     final JFileChooser sourceFileChooser = new JFileChooser();
     Main main;
     ArrayList<String> output;
-    Common common = new Common();
+    CommonController common = new CommonController();
     ITProjectAttributeMapperPanel ITProjectAttributeMapperPanel;
     String[] mappedColumns;
 
@@ -66,15 +74,15 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
 
         projectAttributeMapper = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnPreviouse = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         cb_selectFileType = new javax.swing.JComboBox<>();
         tf_chooseFile = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        extract = new javax.swing.JButton();
+        btnBrowse = new javax.swing.JButton();
+        btnExtract = new javax.swing.JButton();
         btnRawData = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -83,14 +91,15 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
 
         projectAttributeMapper.setLayout(new java.awt.CardLayout());
 
-        jButton1.setText("Previous");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPreviouse.setText("Previous");
+        btnPreviouse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPreviouseActionPerformed(evt);
             }
         });
 
         btnNext.setText("Next");
+        btnNext.setEnabled(false);
         btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNextActionPerformed(evt);
@@ -114,17 +123,18 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setText("Browse");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnBrowse.setText("Browse");
+        btnBrowse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnBrowseActionPerformed(evt);
             }
         });
 
-        extract.setText("Extract");
-        extract.addActionListener(new java.awt.event.ActionListener() {
+        btnExtract.setText("Extract");
+        btnExtract.setEnabled(false);
+        btnExtract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                extractActionPerformed(evt);
+                btnExtractActionPerformed(evt);
             }
         });
 
@@ -144,60 +154,58 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(btnRawData, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPreviouse, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(extract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tf_chooseFile)
-                                .addComponent(cb_selectFileType, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton4)))
-                    .addContainerGap(152, Short.MAX_VALUE)))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnExtract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tf_chooseFile)
+                            .addComponent(cb_selectFileType, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBrowse)))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(195, 195, 195)
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cb_selectFileType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tf_chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBrowse))
+                .addGap(18, 18, 18)
+                .addComponent(btnExtract, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 327, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRawData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnPreviouse, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                        .addComponent(btnRawData, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
                     .addComponent(btnNext, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel5)
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(cb_selectFileType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(tf_chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4))
-                    .addGap(18, 18, 18)
-                    .addComponent(extract, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(440, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -222,15 +230,17 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnPreviouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviouseActionPerformed
+        this.main.contentPanel.removeAll();
+        this.main.contentPanel.add(new EmployeeDataExtractPanel(this.main), "EmployeeDataExtractPanel", 0);
+        this.main.contentPanel.revalidate();
+    }//GEN-LAST:event_btnPreviouseActionPerformed
 
     private void cb_selectFileTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_selectFileTypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_selectFileTypeActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
         selectedFileType = cb_selectFileType.getSelectedItem().toString();
         int result = sourceFileChooser.showOpenDialog(this);
 
@@ -243,18 +253,21 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
             String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
             if (selectedFileType.equals(extension)) {
                 tf_chooseFile.setText(selectedFilePath);
-                btnNext.setEnabled(true);
+                btnExtract.setEnabled(true);
             } else {
-                JOptionPane.showMessageDialog(null, "File format is invalid!", "Warning", JOptionPane.WARNING_MESSAGE);
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "File format is invalid!", "People Clues", JOptionPane.WARNING_MESSAGE);
                 tf_chooseFile.setText(properties.EMPTY);
+                btnExtract.setEnabled(false);
             }
 
         } else if (result == JFileChooser.CANCEL_OPTION) {
             tf_chooseFile.setText(properties.EMPTY);
+            btnExtract.setEnabled(false);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnBrowseActionPerformed
 
-    private void extractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractActionPerformed
+    private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
         Runtime r = Runtime.getRuntime();
         output = new ArrayList<>();
 
@@ -266,7 +279,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                 output.add(line);
 
             }
-            ITProjectAttributeMapperPanel = new ITProjectAttributeMapperPanel(output);
+            ITProjectAttributeMapperPanel = new ITProjectAttributeMapperPanel(output,this);
             this.projectAttributeMapper.removeAll();
             this.projectAttributeMapper.add(ITProjectAttributeMapperPanel, "ITProjectAttributeMapperPanel", 0);
             this.projectAttributeMapper.revalidate();
@@ -274,7 +287,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }//GEN-LAST:event_extractActionPerformed
+    }//GEN-LAST:event_btnExtractActionPerformed
 
     private void btnRawDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRawDataActionPerformed
         new ProjectRawDataView(null, true).setVisible(true);
@@ -282,10 +295,11 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         if (tf_chooseFile.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Data file not selected!", "Warning", JOptionPane.WARNING_MESSAGE);
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Data file not selected!", "People Clues", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                JOptionPane.showMessageDialog(null, "Uploading...", "Data", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Uploading...", "People Clues", JOptionPane.INFORMATION_MESSAGE);
                 Runtime r = Runtime.getRuntime();
                 ArrayList<String> indexedOutput = new ArrayList<>();
                 Process p = r.exec("python src/com/etl/pythonScripts/ExtractProjecteData_working.py");
@@ -293,6 +307,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                 String line;
                 int count = 0;
                 String[] dataline = new String[13];
+                int result = 0;
                 while ((line = input.readLine()) != null) {
                     line = line.trim();
 
@@ -304,7 +319,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
 
                     ++count;
                     if (count == 13) {
-                        common.insertProjectMappedData(dataline, ITProjectAttributeMapperPanel.insertProjectMappedData());
+                        result = common.insertProjectMappedData(dataline, ITProjectAttributeMapperPanel.insertProjectMappedData());
                         count = 0;
                         dataline = new String[13];
                         continue;
@@ -312,10 +327,27 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
 
                 }
 
-                JOptionPane.showMessageDialog(null, "Uploading Succesfully Completed", "Data", JOptionPane.INFORMATION_MESSAGE);
+                if (result != 0) {
+                    try {
+                        new SoundController().playSound("s.wav");
+                        JOptionPane.showMessageDialog(null, "Uploading Succesfully Completed", "People Clues", 1);
+
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (LineUnavailableException ex) {
+                        Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (UnsupportedAudioFileException ex) {
+                        Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
                 new ETLSelectionView(null, true, this.main).setVisible(true);
             } catch (IOException ex) {
                 ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ProjectDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProjectDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -323,12 +355,12 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnBrowse;
+    private javax.swing.JButton btnExtract;
+    public javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPreviouse;
     private javax.swing.JButton btnRawData;
     private javax.swing.JComboBox<String> cb_selectFileType;
-    private javax.swing.JButton extract;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
