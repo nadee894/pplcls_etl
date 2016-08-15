@@ -35,8 +35,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="251" max="-2" attributes="0"/>
-              <Component id="employeeAttributeMapper" min="-2" pref="545" max="-2" attributes="0"/>
-              <EmptySpace pref="136" max="32767" attributes="0"/>
+              <Component id="employeeAttributeMapper" pref="545" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Component id="jPanel2" alignment="0" pref="932" max="32767" attributes="0"/>
