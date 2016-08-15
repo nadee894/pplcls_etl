@@ -47,6 +47,20 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
             cb_empWrkActEndDate.addItem(attributes[i]);
 
         }
+        
+        cb_projectName.setSelectedIndex(0);
+            cb_employeeName.setSelectedIndex(1);
+            cb_woRecDate.setSelectedIndex(2);
+            cb_estEndDate.setSelectedIndex(3);
+            cb_projectValue.setSelectedIndex(4);
+            cb_workToBeDone.setSelectedIndex(5);
+            cb_description.setSelectedIndex(6);
+            cb_type.setSelectedIndex(7);
+            cb_workloadPlanned.setSelectedIndex(8);
+            cb_workloadActual.setSelectedIndex(9);
+            cb_empWrkStartDate.setSelectedIndex(10);
+            cb_empWrkEstEndDate.setSelectedIndex(11);
+            cb_empWrkActEndDate.setSelectedIndex(12);
         this.projectDataExtractPanel.btnNext.setEnabled(true);
     }
 

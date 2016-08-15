@@ -58,7 +58,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         }
         //Get the selected File type
         selectedFileType = cb_selectFileType.getSelectedItem().toString();
-        lblLoader.setVisible(false);
+        lblLoading.setVisible(false);
     }
 
     /**
@@ -85,7 +85,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         btnRawData = new javax.swing.JButton();
         btnPreviouse = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
-        lblLoader = new javax.swing.JLabel();
+        lblLoading = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(916, 697));
 
@@ -171,7 +171,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(73, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnPreviouse, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,7 +180,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                 .addGap(24, 24, 24))
         );
 
-        lblLoader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/etl/images/loader.gif"))); // NOI18N
+        lblLoading.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/etl/images/loader.gif"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -204,11 +204,11 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(btnExtract, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(lblLoader, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(tf_chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -229,21 +229,20 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                     .addComponent(cb_selectFileType, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tf_chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addComponent(btnExtract, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblLoader, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExtract, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(280, 280, 280)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(29, 29, 29))
         );
 
@@ -265,7 +264,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                 .addComponent(employeeAttributeMapper, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addGap(114, 114, 114))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -306,7 +305,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
 
     private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
 
-        lblLoader.setVisible(true);
+        lblLoading.setVisible(true);
         Runtime r = Runtime.getRuntime();
         output = new ArrayList<>();
 
@@ -316,7 +315,6 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
             String line;
             while ((line = input.readLine()) != null) {
                 output.add(line);
-
             }
             ITEmployeeAttributeMapperPanel = new ITEmployeeAttributeMapperPanel(output, this);
 
@@ -325,7 +323,6 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
             this.employeeAttributeMapper.revalidate();
 
             btnRawData.setVisible(true);
-            lblLoader.setVisible(false);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -345,24 +342,14 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                 Toolkit.getDefaultToolkit().beep();
                 JOptionPane.showMessageDialog(null, "Data file not selected!", "People Clues", JOptionPane.WARNING_MESSAGE);
             } else {
-                try {
-                    Runtime r = Runtime.getRuntime();
-                    ArrayList<String> indexedOutput = new ArrayList<>();
-                    Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData_working.py");
-                    final BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                    
-                    javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-
-                            new UploaderPopup(input,ITEmployeeAttributeMapperPanel,main,76*output.size());
-                            
-                        }
-                    });
-                    
-
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                ArrayList<String> indexedOutput = new ArrayList<>();
+                javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        
+                        new UploaderPopup(ITEmployeeAttributeMapperPanel,main,output);
+                        
+                    }
+                });
 
             }
         }
@@ -388,7 +375,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lblLoader;
+    private javax.swing.JLabel lblLoading;
     private javax.swing.JTextField tf_chooseFile;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author Gaya
  */
 public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
-    
+
     private EmployeeDataExtractPanel employeeDataExtractPanel;
 
     /**
@@ -44,11 +44,25 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
             cb_pastExp.addItem(attributes[i]);
             cb_title.addItem(attributes[i]);
         }
+        //dynamic later
+        cb_id.setSelectedIndex(0);
+        cb_curExp.setSelectedIndex(9);
+        cb_designation.setSelectedIndex(7);
+        cb_eduQual.setSelectedIndex(8);
+        cb_email.setSelectedIndex(5);
+        cb_empGender.setSelectedIndex(4);
+        cb_firstName.setSelectedIndex(2);
+        cb_age.setSelectedIndex(6);
+        cb_lastName.setSelectedIndex(3);
+        cb_isPmp.setSelectedIndex(0);
+        cb_pastExp.setSelectedIndex(10);
+        cb_title.setSelectedIndex(1);
+
         this.employeeDataExtractPanel.btnNext.setEnabled(true);
     }
 
     public String[] getHeaders(ArrayList<String> data) {
-        String[] attributes=new String[12];
+        String[] attributes = new String[12];
         if (data.size() != 0) {
             String headers = data.get(0);
             attributes = headers.split(";");
@@ -60,7 +74,6 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
                 attributes[i] = attributes[i].replace("]", "");
 
             }
-          
 
         } else {
             Toolkit.getDefaultToolkit().beep();
@@ -71,33 +84,33 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
 
     public Integer[] insertEmployeeMappedData() {
         Integer[] mappedAttributes = new Integer[12];
-       
-        int id = cb_id.getSelectedIndex();       
-        int title = cb_title.getSelectedIndex();       
+
+        int id = cb_id.getSelectedIndex();
+        int title = cb_title.getSelectedIndex();
         int first_name = cb_firstName.getSelectedIndex();
         int last_name = cb_lastName.getSelectedIndex();
         int emp_gender = cb_empGender.getSelectedIndex();
         int email = cb_email.getSelectedIndex();
         int age = cb_age.getSelectedIndex();
         int designation = cb_designation.getSelectedIndex();
-        int educational_qualification = cb_eduQual.getSelectedIndex();        
+        int educational_qualification = cb_eduQual.getSelectedIndex();
         int working_experience_current = cb_curExp.getSelectedIndex();
         int working_experience_previous = cb_pastExp.getSelectedIndex();
         int is_pmp_certified = cb_isPmp.getSelectedIndex();
 
-        mappedAttributes[0]=id;
-        mappedAttributes[1]=title;
-        mappedAttributes[2]= first_name;
-        mappedAttributes[3]= last_name;
-        mappedAttributes[4]= emp_gender;
-        mappedAttributes[5]= email;
-        mappedAttributes[6]=  age;
-        mappedAttributes[7]= designation;
-        mappedAttributes[8]=  educational_qualification;
-        mappedAttributes[9]= working_experience_current;
-        mappedAttributes[10]= working_experience_previous;
-        mappedAttributes[11]= is_pmp_certified;
-       
+        mappedAttributes[0] = id;
+        mappedAttributes[1] = title;
+        mappedAttributes[2] = first_name;
+        mappedAttributes[3] = last_name;
+        mappedAttributes[4] = emp_gender;
+        mappedAttributes[5] = email;
+        mappedAttributes[6] = age;
+        mappedAttributes[7] = designation;
+        mappedAttributes[8] = educational_qualification;
+        mappedAttributes[9] = working_experience_current;
+        mappedAttributes[10] = working_experience_previous;
+        mappedAttributes[11] = is_pmp_certified;
+
         return mappedAttributes;
     }
 
@@ -248,6 +261,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         jLabel38.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel38.setText("PMP Quaified");
 
+        cb_isPmp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
         cb_isPmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_isPmpActionPerformed(evt);

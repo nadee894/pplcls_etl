@@ -18,7 +18,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,10 +42,9 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
     private JLabel processLabel;
     private Task task;
     public JFrame frame;
-    public static BufferedReader input;
     public static ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel;
     public static Main main;
-    public static int length;
+    public static ArrayList data;
 
     private UploaderPopup() {
     }
@@ -65,31 +66,31 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
             String line;
             CommonController common = new CommonController();
             int count = 0;
-            while ((line = UploaderPopup.input.readLine()) != null) {
-                line = line.trim();
-                if (line.isEmpty()) {
+            Runtime r = Runtime.getRuntime();
+            for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).toString().isEmpty() || data.get(i).toString() == "") {
                     dataline[count] = "NULL";
                 } else {
-                    dataline[count] = line;
+                    dataline[count] = (String) data.get(i);
                 }
-                System.out.println(count);
                 ++count;
-
+                 System.out.println(i);
                 if (count == 76) {
-                    System.out.println(count);
-                    common.insertEmployeeMappedData(dataline, UploaderPopup.ITEmployeeAttributeMapperPanel.insertEmployeeMappedData());
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ignore) {
+                    System.out.println(1);
+                    int res = common.insertEmployeeMappedData(dataline, UploaderPopup.ITEmployeeAttributeMapperPanel.insertEmployeeMappedData());
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException ignore) {
+//                    }
+                    if (res == 1) {
+                        progress += data.size() / 76;
+                        setProgress(progress);
+                        count = 0;
+                        dataline = new String[76];
                     }
-                    progress += UploaderPopup.length / 76;
-                    setProgress(progress);
-                    count = 0;
-                    dataline = new String[76];
-                    continue;
                 }
-
             }
+
             return null;
         }
 
@@ -115,7 +116,7 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
         }
     }
 
-    public UploaderPopup(BufferedReader input, ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel, Main main, int length) {
+    public UploaderPopup(ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel, Main main, ArrayList data) {
         super(new BorderLayout());
 
         progressBar = new JProgressBar(0, 100);
@@ -137,10 +138,9 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
         // Instances of javax.swing.SwingWorker are not reusuable, so
         // we create new instances as needed.
         // Create and set up the window.
-        UploaderPopup.input = input;
         UploaderPopup.ITEmployeeAttributeMapperPanel = ITEmployeeAttributeMapperPanel;
         UploaderPopup.main = main;
-        UploaderPopup.length = length;
+        UploaderPopup.data = data;
 
         frame = new JFrame("People Clues Data Uploader");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -177,9 +177,8 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
      * Create the GUI and show it. As with all GUI code, this must run on the
      * event-dispatching thread.
      */
-    public void createAndShowGUI(BufferedReader input, ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel) {
+    public void createAndShowGUI(ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel) {
         // Create and set up the window.
-        UploaderPopup.input = input;
         UploaderPopup.ITEmployeeAttributeMapperPanel = ITEmployeeAttributeMapperPanel;
 
         JFrame frame = new JFrame("ProgressBarDemo2");
