@@ -126,6 +126,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBrowse.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btnBrowse.setText("Browse");
         btnBrowse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +134,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
             }
         });
 
+        btnExtract.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btnExtract.setText("Extract");
         btnExtract.setEnabled(false);
         btnExtract.addActionListener(new java.awt.event.ActionListener() {
@@ -246,7 +248,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                     .addComponent(lblLoader, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 691, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 586, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,16 +264,16 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                 .addComponent(projectAttributeMapper, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 947, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1568, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(251, 251, 251)
                 .addComponent(projectAttributeMapper, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1029, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -317,26 +319,27 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         lblLoader.setVisible(true);
         Runtime r = Runtime.getRuntime();
         output = new ArrayList<>();
-
-        try {
-            Process p = r.exec("python src/com/etl/pythonScripts/ExtractProjectData.py");
-            System.out.println("java " + selectedFilePath);
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = input.readLine()) != null) {
-                output.add(line);
-
-            }
-            ITProjectAttributeMapperPanel = new ITProjectAttributeMapperPanel(output,this);
-            this.projectAttributeMapper.removeAll();
-            this.projectAttributeMapper.add(ITProjectAttributeMapperPanel, "ITProjectAttributeMapperPanel", 0);
-            this.projectAttributeMapper.revalidate();
-
-            btnRawData.setVisible(true);
-            lblLoader.setVisible(false);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        new ETLSelectionView(null, true, this.main).setVisible(true);
+//
+//        try {
+//            Process p = r.exec("python src/com/etl/pythonScripts/ExtractProjectData.py");
+//            System.out.println("java " + selectedFilePath);
+//            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//            String line;
+//            while ((line = input.readLine()) != null) {
+//                output.add(line);
+//
+//            }
+//            ITProjectAttributeMapperPanel = new ITProjectAttributeMapperPanel(output,this);
+//            this.projectAttributeMapper.removeAll();
+//            this.projectAttributeMapper.add(ITProjectAttributeMapperPanel, "ITProjectAttributeMapperPanel", 0);
+//            this.projectAttributeMapper.revalidate();
+//
+//            btnRawData.setVisible(true);
+//            lblLoader.setVisible(false);
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
 
 
     }//GEN-LAST:event_btnExtractActionPerformed
