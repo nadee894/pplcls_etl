@@ -36,31 +36,5 @@ public class SoundController {
 
     }
 
-    /*
-     * public void aboutLoop() {
-     *
-     *
-     *
-     *
-     * String s="aboutsound.wav"; URL url2 =
-     * getClass().getResource("/sound/"+s); AudioStream as = null; try { as =
-     * new AudioStream(url2.openStream()); AudioData audioData = as.getData();
-     * ContinuousAudioDataStream cas = new ContinuousAudioDataStream(audioData);
-     * AudioPlayer.player.start(cas); } catch (IOException ex) {
-     * Logger.getLogger(SoundController.class.getName()).log(Level.SEVERE, null,
-     * ex); } }
-     */
-    public void aboutSound() {
-        URL url = getClass().getResource("aboutsound.wav");
-        try {
-            audioStream = new AudioStream(url.openStream());
-        } catch (IOException ex) {
-            Logger.getLogger(SoundController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        AudioPlayer.player.start(audioStream);
-    }
-
-    public void stopAboutSound() {
-        AudioPlayer.player.stop(audioStream);
-    }
+  
 }
