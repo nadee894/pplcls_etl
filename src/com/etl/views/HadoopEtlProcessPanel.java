@@ -5,15 +5,17 @@
  */
 package com.etl.views;
 
-import java.awt.List;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Gaya
  */
 public class HadoopEtlProcessPanel extends javax.swing.JPanel {
+    
+    HadoopCleansingPanel hadoopCleansingPanel;
 
     /**
      * Creates new form ITEmployeeAttributeMapperPanel
@@ -22,10 +24,18 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public HadoopEtlProcessPanel(ArrayList<String> data) {
+    public HadoopEtlProcessPanel(HadoopCleansingPanel hadoopCleansingPanel) {
         initComponents();
+        this.hadoopCleansingPanel = hadoopCleansingPanel;
+        Runtime run = Runtime.getRuntime();
+
+        try {
+            run.exec("cmd start /c src/com/etl/pythonScripts/PPLCLS_4_run.bat");
+        } catch (IOException ex) {
+            Logger.getLogger(HadoopEtlProcessPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.hadoopCleansingPanel.btnNext.setEnabled(true);
     }
-  
 
     /**
      * This method is called from within the constructor to initialize the form.

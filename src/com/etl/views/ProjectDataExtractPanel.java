@@ -320,26 +320,26 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         Runtime r = Runtime.getRuntime();
         output = new ArrayList<>();
         new ETLSelectionView(null, true, this.main).setVisible(true);
-//
-//        try {
-//            Process p = r.exec("python src/com/etl/pythonScripts/ExtractProjectData.py");
-//            System.out.println("java " + selectedFilePath);
-//            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-//            String line;
-//            while ((line = input.readLine()) != null) {
-//                output.add(line);
-//
-//            }
-//            ITProjectAttributeMapperPanel = new ITProjectAttributeMapperPanel(output,this);
-//            this.projectAttributeMapper.removeAll();
-//            this.projectAttributeMapper.add(ITProjectAttributeMapperPanel, "ITProjectAttributeMapperPanel", 0);
-//            this.projectAttributeMapper.revalidate();
-//
-//            btnRawData.setVisible(true);
-//            lblLoader.setVisible(false);
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
+
+        try {
+            Process p = r.exec("python src/com/etl/pythonScripts/ExtractProjectData.py");
+            System.out.println("java " + selectedFilePath);
+            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = input.readLine()) != null) {
+                output.add(line);
+
+            }
+            ITProjectAttributeMapperPanel = new ITProjectAttributeMapperPanel(output,this);
+            this.projectAttributeMapper.removeAll();
+            this.projectAttributeMapper.add(ITProjectAttributeMapperPanel, "ITProjectAttributeMapperPanel", 0);
+            this.projectAttributeMapper.revalidate();
+
+            btnRawData.setVisible(true);
+            lblLoader.setVisible(false);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
 
     }//GEN-LAST:event_btnExtractActionPerformed

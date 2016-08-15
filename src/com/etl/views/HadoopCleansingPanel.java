@@ -5,7 +5,6 @@
  */
 package com.etl.views;
 
-import java.io.IOException;
 import javax.swing.ImageIcon;
 
 /**
@@ -17,19 +16,20 @@ public class HadoopCleansingPanel extends javax.swing.JPanel {
     /**
      * Creates new form NewJPanel
      */
-   
     Main main;
     final ImageIcon icon = new ImageIcon("src//com//etl//images//loader.gif");
 
     public HadoopCleansingPanel() {
         initComponents();
-      
 
     }
 
     public HadoopCleansingPanel(Main main) {
         initComponents();
         this.main = main;
+        this.main.btnEmployeeDataExtractionStep.setEnabled(false);
+        this.main.btnProjectDataExtractionStep.setEnabled(false);
+        this.main.btnProcessDataStep.setEnabled(true);
     }
 
     /**
@@ -197,26 +197,16 @@ public class HadoopCleansingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPreviouseActionPerformed
 
     private void btnStartCleansingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartCleansingActionPerformed
-         try {
-            Runtime run = Runtime.getRuntime();
-            
-            run.exec("cmd start /c src/com/etl/pythonScripts/PPLCLS_4_run.bat");
-            
-            this.processProgressPanel.removeAll();
-            this.processProgressPanel.add(new HadoopEtlProcessPanel(), "HadoopEtlProcessPanel", 0);
-            this.processProgressPanel.revalidate();
-            btnNext.setEnabled(true);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
 
-     
+        this.processProgressPanel.removeAll();
+        this.processProgressPanel.add(new HadoopEtlProcessPanel(this), "HadoopEtlProcessPanel", 0);
+        this.processProgressPanel.revalidate();
 
 
     }//GEN-LAST:event_btnStartCleansingActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        
+
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
