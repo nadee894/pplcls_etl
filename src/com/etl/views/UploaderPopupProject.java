@@ -60,37 +60,52 @@ public class UploaderPopupProject extends JPanel implements PropertyChangeListen
 
             // Initialize progress property.
             setProgress(0);
-
-            String[] dataline = new String[13];
-            String line;
-            CommonController common = new CommonController();
-            int count = 0;
-            while ((line = UploaderPopupProject.input.readLine()) != null) {
-                line = line.trim();
-                if (line.isEmpty()) {
-                    dataline[count] = "NULL";
-                } else {
-                    dataline[count] = line;
+            try {
+                Thread.sleep(1000 + random.nextInt(2000));
+            } catch (InterruptedException ignore) {
+            }
+            while (progress < 100) {
+                // Sleep for up to one second.
+                try {
+                    Thread.sleep(random.nextInt(1000));
+                } catch (InterruptedException ignore) {
                 }
-                System.out.println(count);
-                ++count;
-
-                if (count == 13) {
-                    System.out.println(count);
-                    common.insertProjectMappedData(dataline, UploaderPopupProject.ITProjectAttributeMapperPanel.insertProjectMappedData());
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ignore) {
-                    }
-                    progress += UploaderPopupProject.length / 13;
-                    setProgress(progress);
-                    count = 0;
-                    dataline = new String[13];
-                    continue;
-                }
-
+                // Make random progress.
+                progress += random.nextInt(10);
+                setProgress(Math.min(progress, 100));
             }
             return null;
+
+//            String[] dataline = new String[13];
+//            String line;
+//            CommonController common = new CommonController();
+//            int count = 0;
+//            while ((line = UploaderPopupProject.input.readLine()) != null) {
+//                line = line.trim();
+//                if (line.isEmpty()) {
+//                    dataline[count] = "NULL";
+//                } else {
+//                    dataline[count] = line;
+//                }
+//                System.out.println(count);
+//                ++count;
+//
+//                if (count == 13) {
+//                    System.out.println(count);
+//                    common.insertProjectMappedData(dataline, UploaderPopupProject.ITProjectAttributeMapperPanel.insertProjectMappedData());
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException ignore) {
+//                    }
+//                    progress += UploaderPopupProject.length / 13;
+//                    setProgress(progress);
+//                    count = 0;
+//                    dataline = new String[13];
+//                    continue;
+//                }
+//
+//            }
+//            return null;
         }
 
         /*
@@ -113,7 +128,7 @@ public class UploaderPopupProject extends JPanel implements PropertyChangeListen
         }
     }
 
-    public UploaderPopupProject(BufferedReader input, ITProjectAttributeMapperPanel ITProjectAttributeMapperPanel, Main main,int length) {
+    public UploaderPopupProject(BufferedReader input, ITProjectAttributeMapperPanel ITProjectAttributeMapperPanel, Main main, int length) {
         super(new BorderLayout());
 
         progressBar = new JProgressBar(0, 100);
