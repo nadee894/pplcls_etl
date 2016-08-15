@@ -319,7 +319,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         lblLoader.setVisible(true);
         Runtime r = Runtime.getRuntime();
         output = new ArrayList<>();
-        new ETLSelectionView(null, true, this.main).setVisible(true);
+        
 
         try {
             Process p = r.exec("python src/com/etl/pythonScripts/ExtractProjectData.py");

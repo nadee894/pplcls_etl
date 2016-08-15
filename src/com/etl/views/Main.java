@@ -7,11 +7,10 @@ package com.etl.views;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import javax.swing.JFrame;
 
 /**
  *
- * @author shamainpeiris
+ * @author Gaya
  */
 public class Main extends javax.swing.JFrame {
 
