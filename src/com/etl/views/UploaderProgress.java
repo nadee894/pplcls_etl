@@ -120,6 +120,7 @@ public class UploaderProgress extends JPanel implements ActionListener,
    * Invoked when task's progress property changes.
    */
   public void propertyChange(PropertyChangeEvent evt) {
+       System.out.println(evt.getPropertyName());
     if ("progress" == evt.getPropertyName()) {
       int progress = (Integer) evt.getNewValue();
       progressBar.setIndeterminate(false);

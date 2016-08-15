@@ -6,8 +6,6 @@
 package com.etl.views;
 
 import com.etl.sound.SoundController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -23,9 +21,9 @@ import javax.swing.SwingWorker;
  *
  * @author Gaya
  */
-public class HadoopEtlProcessPanel extends javax.swing.JPanel  {
+public class HadoopEtlProcessPanel extends javax.swing.JPanel  implements PropertyChangeListener{
 
-    HadoopCleansingPanel hadoopCleansingPanel;
+    private static HadoopCleansingPanel hadoopCleansingPanel;
     private Task task;
 
     /**
@@ -37,7 +35,7 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel  {
 
     public HadoopEtlProcessPanel(HadoopCleansingPanel hadoopCleansingPanel) {
         initComponents();
-        this.hadoopCleansingPanel = hadoopCleansingPanel;
+        HadoopEtlProcessPanel.hadoopCleansingPanel = hadoopCleansingPanel;
         Runtime run = Runtime.getRuntime();
 
         try {
@@ -45,9 +43,9 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel  {
         } catch (IOException ex) {
             Logger.getLogger(HadoopEtlProcessPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.hadoopCleansingPanel.btnNext.setEnabled(true);
 
         task = new Task();
+        task.addPropertyChangeListener(this);
         task.execute();
     }
 
@@ -62,20 +60,29 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel  {
 
         jPanel1 = new javax.swing.JPanel();
         progressBar = new javax.swing.JProgressBar();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtOutput = new javax.swing.JTextArea();
 
         setPreferredSize(new java.awt.Dimension(599, 269));
 
+        progressBar.setForeground(new java.awt.Color(51, 51, 51));
+        progressBar.setIndeterminate(true);
+        progressBar.setStringPainted(true);
         progressBar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 progressBarPropertyChange(evt);
             }
         });
 
-        jLabel1.setText("jLabel1");
-
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel2.setText("Processing ....");
+
+        txtOutput.setEditable(false);
+        txtOutput.setBackground(new java.awt.Color(204, 204, 204));
+        txtOutput.setColumns(20);
+        txtOutput.setRows(5);
+        jScrollPane1.setViewportView(txtOutput);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,24 +90,24 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel  {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 253, Short.MAX_VALUE)))
+                .addGap(78, 78, 78))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
-                .addGap(29, 29, 29)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -116,19 +123,32 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel  {
     }// </editor-fold>//GEN-END:initComponents
 
     private void progressBarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_progressBarPropertyChange
+        System.out.println(evt.getPropertyName());
         if ("progress" == evt.getPropertyName()) {
+            System.out.println(evt.getPropertyName());
             int progress = (Integer) evt.getNewValue();
             progressBar.setIndeterminate(false);
             progressBar.setValue(progress);
+            txtOutput.append(String.format("Completed %d%% of task.\n", progress));
         }
     }//GEN-LAST:event_progressBarPropertyChange
-
+public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println(evt.getPropertyName());
+        if ("progress" == evt.getPropertyName()) {
+            System.out.println(evt.getPropertyName());
+            int progress = (Integer) evt.getNewValue();
+            progressBar.setIndeterminate(false);
+            progressBar.setValue(progress);
+            txtOutput.append(String.format("Completed %d%% of task.\n", progress));
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JTextArea txtOutput;
     // End of variables declaration//GEN-END:variables
  public class Task extends SwingWorker<Void, Void> {
 
@@ -137,6 +157,7 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel  {
          */
         @Override
         public Void doInBackground() {
+            System.out.println("sdf");
             Random random = new Random();
             int progress = 0;
             // Initialize progress property.
@@ -165,7 +186,9 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel  {
         public void done() {
 
             try {
+                txtOutput.append("Done!\n");
                 new SoundController().playSound("s.wav");
+                HadoopEtlProcessPanel.hadoopCleansingPanel.btnNext.setEnabled(true);
             } catch (IOException ex) {
                 Logger.getLogger(HadoopEtlProcessPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (LineUnavailableException ex) {

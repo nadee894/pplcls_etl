@@ -85,7 +85,7 @@ public class UploaderPopupProject extends JPanel implements PropertyChangeListen
                     progress += UploaderPopupProject.length / 13;
                     setProgress(progress);
                     count = 0;
-                    dataline = new String[76];
+                    dataline = new String[13];
                     continue;
                 }
 
