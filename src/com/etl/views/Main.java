@@ -20,6 +20,10 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        int xsize = (int) toolkit.getScreenSize().getWidth();
+        int ysize = (int) toolkit.getScreenSize().getHeight();
+        this.setSize(xsize, ysize);
         contentPanel.removeAll();
         contentPanel.add(new EmployeeDataExtractPanel(this), "EmployeeDataExtractPanel", 0);
         contentPanel.revalidate();
@@ -47,7 +51,6 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("People Clues ETL Tool");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setIconImage(Toolkit.getDefaultToolkit().getImage("src//com//etl//images//favicon.ico"));
 
         stepsPanel.setBackground(new java.awt.Color(73, 162, 176));

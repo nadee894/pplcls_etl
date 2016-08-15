@@ -5,8 +5,6 @@
  */
 package com.etl.controllers;
 
-import com.sun.javafx.scene.layout.region.Margins;
-
 /**
  *
  * @author Lakshan
