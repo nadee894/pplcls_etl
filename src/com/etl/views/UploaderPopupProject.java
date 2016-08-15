@@ -97,7 +97,6 @@ public class UploaderPopupProject extends JPanel implements PropertyChangeListen
      * Executed in event dispatch thread
          */
         public void done() {
-            Toolkit.getDefaultToolkit().beep();
             try {
                 new SoundController().playSound("s.wav");
             } catch (IOException ex) {
