@@ -219,9 +219,9 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEmployeeDataExtractionStep;
-    private javax.swing.JButton btnProcessDataStep;
-    private javax.swing.JButton btnProjectDataExtractionStep;
+    public javax.swing.JButton btnEmployeeDataExtractionStep;
+    public javax.swing.JButton btnProcessDataStep;
+    public javax.swing.JButton btnProjectDataExtractionStep;
     public javax.swing.JPanel contentPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPane1;
