@@ -71,6 +71,38 @@ public class ETLSelectionView extends javax.swing.JDialog {
 
         buttonGroup1.add(rbTraditionalEtl);
         rbTraditionalEtl.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        rbTraditionalEtl.setSelected(true);
+        rbTraditionalEtl.setText("Traditional ETL");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(73, 162, 176));
+        jLabel2.setText("<html>Data Cleansing Mechanisms are less,</br> Capacity of data that can processed</br> is less and time consuming, </br>but if the data set is less than </br>20000 this is the best option</html>");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbTraditionalEtl, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(rbTraditionalEtl, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addGap(22, 22, 22))
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        buttonGroup1.add(rbHadoopEtl);
+        rbHadoopEtl.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         rbHadoopEtl.setText("Hadoop Intergrated ETL");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
