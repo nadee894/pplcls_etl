@@ -29,7 +29,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     final JFileChooser sourceFileChooser = new JFileChooser();
     Main main;
     ArrayList<String> output;
-    
+
     ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel;
     String[] mappedColumns;
     final ImageIcon icon = new ImageIcon("src//com//etl//images//loader.gif");
@@ -326,7 +326,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
+        lblLoading.setVisible(false);
 
     }//GEN-LAST:event_btnExtractActionPerformed
 
@@ -345,9 +345,9 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                 ArrayList<String> indexedOutput = new ArrayList<>();
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        
-                        new UploaderPopup(ITEmployeeAttributeMapperPanel,main,output);
-                        
+
+                        new UploaderPopup(ITEmployeeAttributeMapperPanel, main, output);
+
                     }
                 });
 

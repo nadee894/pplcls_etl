@@ -108,6 +108,7 @@ public class HadoopCleansingPanel extends javax.swing.JPanel {
         );
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jCheckBox1.setSelected(true);
         jCheckBox1.setText("Remove Null Values/ Remove Duplicate Values");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,12 +143,8 @@ public class HadoopCleansingPanel extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(152, 152, 152)))
+                    .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnStartCleansing, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(220, 220, 220))
@@ -196,7 +193,7 @@ public class HadoopCleansingPanel extends javax.swing.JPanel {
                 .addContainerGap(130, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
                     .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -208,7 +205,7 @@ public class HadoopCleansingPanel extends javax.swing.JPanel {
     private void btnStartCleansingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartCleansingActionPerformed
 
         this.processProgressPanel.removeAll();
-        this.processProgressPanel.add(new HadoopEtlProcessPanel(this) {}, "HadoopEtlProcessPanel", 0);
+        this.processProgressPanel.add(new HadoopEtlProcessPanel(this,this.main) {}, "HadoopEtlProcessPanel", 0);
         this.processProgressPanel.revalidate();
 
 

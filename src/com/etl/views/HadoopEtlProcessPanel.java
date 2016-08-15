@@ -25,6 +25,7 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel implements Propert
 
     private static HadoopCleansingPanel hadoopCleansingPanel;
     private Task task;
+    private static Main main;
 
     /**
      * Creates new form ITEmployeeAttributeMapperPanel
@@ -33,9 +34,10 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel implements Propert
         initComponents();
     }
 
-    public HadoopEtlProcessPanel(HadoopCleansingPanel hadoopCleansingPanel) {
+    public HadoopEtlProcessPanel(HadoopCleansingPanel hadoopCleansingPanel, Main main) {
         initComponents();
         HadoopEtlProcessPanel.hadoopCleansingPanel = hadoopCleansingPanel;
+        HadoopEtlProcessPanel.main = main;
         Runtime run = Runtime.getRuntime();
 
         try {
@@ -194,7 +196,9 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel implements Propert
             }
 
             JOptionPane.showMessageDialog(null, "Data Processing Succesfully Completed", "People Clues", 1);
-
+            HadoopEtlProcessPanel.main.contentPanel.removeAll();
+            HadoopEtlProcessPanel.main.contentPanel.add(new FinishPanel(HadoopEtlProcessPanel.main), "ProjectDataExtractPanel", 0);
+            HadoopEtlProcessPanel.main.contentPanel.revalidate();
         }
     }
 

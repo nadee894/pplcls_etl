@@ -57,7 +57,7 @@ public class Main extends javax.swing.JFrame {
 
         btnEmployeeDataExtractionStep.setBackground(new java.awt.Color(73, 162, 176));
         btnEmployeeDataExtractionStep.setForeground(new java.awt.Color(255, 255, 255));
-        btnEmployeeDataExtractionStep.setText("1. Employee Data Extraction");
+        btnEmployeeDataExtractionStep.setText(" 1. Employee Data Extraction");
         btnEmployeeDataExtractionStep.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnEmployeeDataExtractionStep.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnEmployeeDataExtractionStep.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +68,7 @@ public class Main extends javax.swing.JFrame {
 
         btnProjectDataExtractionStep.setBackground(new java.awt.Color(73, 162, 176));
         btnProjectDataExtractionStep.setForeground(new java.awt.Color(255, 255, 255));
-        btnProjectDataExtractionStep.setText("2. Project Data Extraction");
+        btnProjectDataExtractionStep.setText(" 2. Project Data Extraction");
         btnProjectDataExtractionStep.setToolTipText("");
         btnProjectDataExtractionStep.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnProjectDataExtractionStep.setEnabled(false);
@@ -78,7 +78,7 @@ public class Main extends javax.swing.JFrame {
 
         btnProcessDataStep.setBackground(new java.awt.Color(73, 162, 176));
         btnProcessDataStep.setForeground(new java.awt.Color(255, 255, 255));
-        btnProcessDataStep.setText("3. Process Data");
+        btnProcessDataStep.setText(" 3. Process Data");
         btnProcessDataStep.setToolTipText("");
         btnProcessDataStep.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnProcessDataStep.setEnabled(false);

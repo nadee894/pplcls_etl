@@ -344,7 +344,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
             ex.printStackTrace();
         }
 
-
+        lblLoader.setVisible(false);
     }//GEN-LAST:event_btnExtractActionPerformed
 
     private void btnRawDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRawDataActionPerformed
