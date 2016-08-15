@@ -21,7 +21,7 @@ import javax.swing.SwingWorker;
  *
  * @author Gaya
  */
-public class HadoopEtlProcessPanel extends javax.swing.JPanel  implements PropertyChangeListener{
+public class HadoopEtlProcessPanel extends javax.swing.JPanel implements PropertyChangeListener {
 
     private static HadoopCleansingPanel hadoopCleansingPanel;
     private Task task;
@@ -123,23 +123,19 @@ public class HadoopEtlProcessPanel extends javax.swing.JPanel  implements Proper
     }// </editor-fold>//GEN-END:initComponents
 
     private void progressBarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_progressBarPropertyChange
-        System.out.println(evt.getPropertyName());
         if ("progress" == evt.getPropertyName()) {
-            System.out.println(evt.getPropertyName());
             int progress = (Integer) evt.getNewValue();
             progressBar.setIndeterminate(false);
             progressBar.setValue(progress);
-            txtOutput.append(String.format("Completed %d%% of task.\n", progress));
+            txtOutput.append(String.format("Process is running  %d%% .\n", progress));
         }
     }//GEN-LAST:event_progressBarPropertyChange
-public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println(evt.getPropertyName());
+    public void propertyChange(PropertyChangeEvent evt) {
         if ("progress" == evt.getPropertyName()) {
-            System.out.println(evt.getPropertyName());
             int progress = (Integer) evt.getNewValue();
             progressBar.setIndeterminate(false);
             progressBar.setValue(progress);
-            txtOutput.append(String.format("Completed %d%% of task.\n", progress));
+            txtOutput.append(String.format("Process is running  %d%%.\n", progress));
         }
     }
 
