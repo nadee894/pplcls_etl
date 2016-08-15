@@ -112,7 +112,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         jLabel4.setText("Select File Type");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setText("Choose File For Employee Data Extraction ");
+        jLabel5.setText("Choose File For Project Data Extraction ");
 
         cb_selectFileType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

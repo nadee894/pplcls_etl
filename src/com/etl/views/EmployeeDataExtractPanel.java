@@ -38,7 +38,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     final JFileChooser sourceFileChooser = new JFileChooser();
     Main main;
     ArrayList<String> output;
-    CommonController common = new CommonController();
+    
     ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel;
     String[] mappedColumns;
     final ImageIcon icon = new ImageIcon("src//com//etl//images//loader.gif");
@@ -314,14 +314,13 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBrowseActionPerformed
 
     private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
-        
+
         lblLoader.setVisible(true);
         Runtime r = Runtime.getRuntime();
         output = new ArrayList<>();
 
         try {
             Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData.py");
-            System.out.println("java " + selectedFilePath);
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
             while ((line = input.readLine()) != null) {
@@ -359,58 +358,19 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                     Runtime r = Runtime.getRuntime();
                     ArrayList<String> indexedOutput = new ArrayList<>();
                     Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData_working.py");
-                    BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                    String line;
-                    Integer count = 0;
-                    //JOptionPane.showMessageDialog(null, "Data Extracting... " + count, "People Clues", JOptionPane.INFORMATION_MESSAGE, icon);
-                    Uploader up = new Uploader();
-                    up.setVisible(true);
-                    String[] dataline = new String[76];
-                    int result = 0;
+                    final BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                    
+                    javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
 
-                    while ((line = input.readLine()) != null) {
-                        line = line.trim();
-                        if (line.isEmpty()) {
-                            dataline[count] = "NULL";
-                        } else {
-                            dataline[count] = line;
+                            new UploaderPopup(input,ITEmployeeAttributeMapperPanel,main,76*output.size());
+                            
                         }
-
-                        ++count;
-                        if (count == 76) {
-                            result = common.insertEmployeeMappedData(dataline, ITEmployeeAttributeMapperPanel.insertEmployeeMappedData());
-                            count = 0;
-                            dataline = new String[76];
-                            continue;
-                        }
-
-                    }
-
-                    if (result != 0) {
-                        try {
-                            new SoundController().playSound("s.wav");
-                            JOptionPane.showMessageDialog(null, "Uploading Succesfully Completed", "People Clues", 1);
-
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (LineUnavailableException ex) {
-                            Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (UnsupportedAudioFileException ex) {
-                            Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        up.setVisible(false);
-
-                        this.main.contentPanel.removeAll();
-                        this.main.contentPanel.add(new ProjectDataExtractPanel(this.main), "ProjectDataExtractPanel", 0);
-                        this.main.contentPanel.revalidate();
-                    }
+                    });
+                    
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
