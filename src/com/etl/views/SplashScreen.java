@@ -42,6 +42,7 @@ public class SplashScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
+        setIconImage(Toolkit.getDefaultToolkit().getImage("src//com//etl//images//favicon.ico"));
         setUndecorated(true);
         setResizable(false);
 
@@ -72,7 +73,7 @@ public class SplashScreen extends javax.swing.JFrame {
         SplashScreen splashFrame = new SplashScreen();
         splashFrame.setVisible(true);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
             String[] li = {"Licensee=Alvaro Duran Tovar  ", "LicenseRegistrationNumber=------", "Product=Synthetica", "LicenseType=Commercial", "ExpireDate=--.--.----", "MaxVersion=2.999.999"};
             UIManager.put("Synthetica.license.info", li);
             UIManager.put("Synthetica.license.key", "7C970FF4-E59D6AF5-8376C987-6F82C092-8377BB97");

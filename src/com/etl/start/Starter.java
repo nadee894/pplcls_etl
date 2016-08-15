@@ -30,7 +30,6 @@ public class Starter {
     public static void main(String[] args) {
         try {
             
-            
             SplashScreen.run();
         } catch (IOException ex) {
             Logger.getLogger(Starter.class.getName()).log(Level.SEVERE, null, ex);
