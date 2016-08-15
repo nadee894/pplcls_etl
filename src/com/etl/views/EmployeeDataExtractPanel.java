@@ -314,6 +314,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBrowseActionPerformed
 
     private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
+        
         lblLoader.setVisible(true);
         Runtime r = Runtime.getRuntime();
         output = new ArrayList<>();
@@ -361,7 +362,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                     BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
                     String line;
                     Integer count = 0;
-                    JOptionPane.showMessageDialog(null, "Data Extracting... " + count, "People Clues", JOptionPane.INFORMATION_MESSAGE, icon);
+                    //JOptionPane.showMessageDialog(null, "Data Extracting... " + count, "People Clues", JOptionPane.INFORMATION_MESSAGE, icon);
                     Uploader up = new Uploader();
                     up.setVisible(true);
                     String[] dataline = new String[76];

@@ -34,7 +34,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
     /**
      * Creates new form NewJPanel
      */
-    String selectedFilePath, selectedFileType;
+     String selectedFilePath, selectedFileType;
     final JFileChooser sourceFileChooser = new JFileChooser();
     Main main;
     ArrayList<String> output;
@@ -97,7 +97,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         btnNext = new javax.swing.JButton();
         lblLoader = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(1568, 819));
+        setPreferredSize(new java.awt.Dimension(916, 697));
 
         projectAttributeMapper.setLayout(new java.awt.CardLayout());
 
@@ -112,7 +112,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         jLabel4.setText("Select File Type");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setText("Choose File For Project Data Extraction ");
+        jLabel5.setText("Choose File For Employee Data Extraction ");
 
         cb_selectFileType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,8 +202,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,7 +223,10 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                                         .addComponent(tf_chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 151, Short.MAX_VALUE)))
+                        .addGap(0, 122, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -248,11 +250,11 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                     .addComponent(lblLoader, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 586, Short.MAX_VALUE)
+                .addGap(280, 280, 280)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -261,24 +263,24 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(projectAttributeMapper, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
+                .addComponent(projectAttributeMapper, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1568, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(251, 251, 251)
-                .addComponent(projectAttributeMapper, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(projectAttributeMapper, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addGap(114, 114, 114))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPreviouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviouseActionPerformed
-        this.main.contentPanel.removeAll();
+       this.main.contentPanel.removeAll();
         this.main.contentPanel.add(new EmployeeDataExtractPanel(this.main), "EmployeeDataExtractPanel", 0);
         this.main.contentPanel.revalidate();
     }//GEN-LAST:event_btnPreviouseActionPerformed
@@ -316,7 +318,8 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBrowseActionPerformed
 
     private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
-        lblLoader.setVisible(true);
+        
+           lblLoader.setVisible(true);
         Runtime r = Runtime.getRuntime();
         output = new ArrayList<>();
         
@@ -349,7 +352,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRawDataActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        Toolkit.getDefaultToolkit().beep();
+         Toolkit.getDefaultToolkit().beep();
         int msg = JOptionPane.showConfirmDialog(null, "Are you sure? Once the data inserted to the database cannot be undone", "Confirmation!", JOptionPane.YES_NO_OPTION);
         if (msg == JOptionPane.YES_OPTION) {
             if (tf_chooseFile.getText().equals("")) {
@@ -393,11 +396,11 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                             JOptionPane.showMessageDialog(null, "Uploading Succesfully Completed", "People Clues", 1);
 
                         } catch (FileNotFoundException ex) {
-                            Logger.getLogger(ProjectDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(ProjectRawDataView.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (LineUnavailableException ex) {
-                            Logger.getLogger(ProjectDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(ProjectRawDataView.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (UnsupportedAudioFileException ex) {
-                            Logger.getLogger(ProjectDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(ProjectRawDataView.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         up.setVisible(false);
 
@@ -407,9 +410,9 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(ProjectDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProjectRawDataView.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProjectDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProjectRawDataView.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
