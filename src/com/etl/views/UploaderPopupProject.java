@@ -34,18 +34,18 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
-public class UploaderPopup extends JPanel implements PropertyChangeListener {
+public class UploaderPopupProject extends JPanel implements PropertyChangeListener {
 
     private JProgressBar progressBar;
     private JLabel processLabel;
     private Task task;
     public JFrame frame;
     public static BufferedReader input;
-    public static ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel;
+    public static ITProjectAttributeMapperPanel ITProjectAttributeMapperPanel;
     public static Main main;
     public static int length;
 
-    private UploaderPopup() {
+    private UploaderPopupProject() {
     }
 
     public class Task extends SwingWorker<Void, Void> {
@@ -61,11 +61,11 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
             // Initialize progress property.
             setProgress(0);
 
-            String[] dataline = new String[76];
+            String[] dataline = new String[13];
             String line;
             CommonController common = new CommonController();
             int count = 0;
-            while ((line = UploaderPopup.input.readLine()) != null) {
+            while ((line = UploaderPopupProject.input.readLine()) != null) {
                 line = line.trim();
                 if (line.isEmpty()) {
                     dataline[count] = "NULL";
@@ -75,14 +75,14 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
                 System.out.println(count);
                 ++count;
 
-                if (count == 76) {
+                if (count == 13) {
                     System.out.println(count);
-                    common.insertEmployeeMappedData(dataline, UploaderPopup.ITEmployeeAttributeMapperPanel.insertEmployeeMappedData());
+                    common.insertProjectMappedData(dataline, UploaderPopupProject.ITProjectAttributeMapperPanel.insertProjectMappedData());
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ignore) {
                     }
-                    progress += UploaderPopup.length / 76;
+                    progress += UploaderPopupProject.length / 13;
                     setProgress(progress);
                     count = 0;
                     dataline = new String[76];
@@ -101,22 +101,20 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
             try {
                 new SoundController().playSound("s.wav");
             } catch (IOException ex) {
-                Logger.getLogger(UploaderPopup.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UploaderPopupProject.class.getName()).log(Level.SEVERE, null, ex);
             } catch (LineUnavailableException ex) {
-                Logger.getLogger(UploaderPopup.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UploaderPopupProject.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnsupportedAudioFileException ex) {
-                Logger.getLogger(UploaderPopup.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UploaderPopupProject.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(null, "Uploading Succesfully Completed", "People Clues", 1);
             frame.setVisible(false);
-            UploaderPopup.main.contentPanel.removeAll();
-            UploaderPopup.main.contentPanel.add(new ProjectDataExtractPanel(UploaderPopup.main), "ProjectDataExtractPanel", 0);
-            UploaderPopup.main.contentPanel.revalidate();
+            new ETLSelectionView(null, true, UploaderPopupProject.main).setVisible(true);
 
         }
     }
 
-    public UploaderPopup(BufferedReader input, ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel, Main main, int length) {
+    public UploaderPopupProject(BufferedReader input, ITProjectAttributeMapperPanel ITProjectAttributeMapperPanel, Main main,int length) {
         super(new BorderLayout());
 
         progressBar = new JProgressBar(0, 100);
@@ -138,10 +136,10 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
         // Instances of javax.swing.SwingWorker are not reusuable, so
         // we create new instances as needed.
         // Create and set up the window.
-        UploaderPopup.input = input;
-        UploaderPopup.ITEmployeeAttributeMapperPanel = ITEmployeeAttributeMapperPanel;
-        UploaderPopup.main = main;
-        UploaderPopup.length = length;
+        UploaderPopupProject.input = input;
+        UploaderPopupProject.ITProjectAttributeMapperPanel = ITProjectAttributeMapperPanel;
+        UploaderPopupProject.main = main;
+        UploaderPopupProject.length = length;
 
         frame = new JFrame("People Clues Data Uploader");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -178,16 +176,16 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
      * Create the GUI and show it. As with all GUI code, this must run on the
      * event-dispatching thread.
      */
-    public void createAndShowGUI(BufferedReader input, ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel) {
+    public void createAndShowGUI(BufferedReader input, ITProjectAttributeMapperPanel ITProjectAttributeMapperPanel) {
         // Create and set up the window.
-        UploaderPopup.input = input;
-        UploaderPopup.ITEmployeeAttributeMapperPanel = ITEmployeeAttributeMapperPanel;
+        UploaderPopupProject.input = input;
+        UploaderPopupProject.ITProjectAttributeMapperPanel = ITProjectAttributeMapperPanel;
 
         JFrame frame = new JFrame("ProgressBarDemo2");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create and set up the content pane.
-        JComponent newContentPane = new UploaderPopup();
+        JComponent newContentPane = new UploaderPopupProject();
         newContentPane.setOpaque(true); // content panes must be opaque
         frame.setContentPane(newContentPane);
 
