@@ -67,7 +67,7 @@ public class UploaderPopupProject extends JPanel implements PropertyChangeListen
             while (progress < 100) {
                 // Sleep for up to one second.
                 try {
-                    Thread.sleep(random.nextInt(1000));
+                    Thread.sleep(random.nextInt(800));
                 } catch (InterruptedException ignore) {
                 }
                 // Make random progress.
@@ -121,8 +121,8 @@ public class UploaderPopupProject extends JPanel implements PropertyChangeListen
             } catch (UnsupportedAudioFileException ex) {
                 Logger.getLogger(UploaderPopupProject.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(null, "Uploading Succesfully Completed", "People Clues", 1);
             frame.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Uploading Succesfully Completed", "People Clues", 1);
             new ETLSelectionView(null, true, UploaderPopupProject.main).setVisible(true);
 
         }

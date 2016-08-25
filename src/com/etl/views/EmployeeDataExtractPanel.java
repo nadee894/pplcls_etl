@@ -6,6 +6,7 @@
 package com.etl.views;
 
 import com.etl.controllers.properties;
+import java.awt.List;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +26,8 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     /**
      * Creates new form NewJPanel
      */
-    String selectedFilePath, selectedFileType;
+    String[] selectedFilePath;
+    String selectedFileType;
     final JFileChooser sourceFileChooser = new JFileChooser();
     Main main;
     ArrayList<String> output;
@@ -286,10 +288,11 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         //Detect user click on Open or Cancel Button of JFilePicker
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFilePath = sourceFileChooser.getSelectedFile().getAbsolutePath();
-            String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
+            String selectedFilePathString = sourceFileChooser.getSelectedFile().getAbsolutePath();
+            String extension = selectedFilePathString.substring(selectedFilePathString.lastIndexOf(".") + 1, selectedFilePathString.length());
             if (selectedFileType.equals(extension)) {
-                tf_chooseFile.setText(selectedFilePath);
+                tf_chooseFile.setText(selectedFilePathString);
+                selectedFilePath = new String[]{selectedFilePathString};
                 btnExtract.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(null, "File format is invalid!", "People Clues", JOptionPane.WARNING_MESSAGE);
@@ -308,13 +311,18 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         lblLoading.setVisible(true);
         Runtime r = Runtime.getRuntime();
         output = new ArrayList<>();
-
+        System.out.println("before python " + selectedFilePath[0]);
+        String[] cmd = {"python", "src/com/etl/pythonScripts/ExtractEmployeeData.py", selectedFilePath[0]};
         try {
-            Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData.py");
+//            Process p = r.exec("python src/com/etl/pythonScripts/ExtractEmployeeData.py"+ selectedFilePath[0]);
+            Process p = r.exec(cmd);
+
+            System.out.println("after python " + selectedFilePath[0]);
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
             while ((line = input.readLine()) != null) {
                 output.add(line);
+                System.out.println("line " + line);
             }
             ITEmployeeAttributeMapperPanel = new ITEmployeeAttributeMapperPanel(output, this);
 

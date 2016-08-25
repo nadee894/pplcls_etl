@@ -18,7 +18,7 @@ public class DBConnection {
 
     private String url = "jdbc:mysql://localhost/pplcls";
     private String username = "root";
-    private String password = "gaya";
+    private String password = "";
     private static DBConnection dbCon;
     private Connection con;
 
