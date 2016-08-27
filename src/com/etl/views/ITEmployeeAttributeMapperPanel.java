@@ -31,7 +31,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
 
         //Load file types to the combo box
         for (int i = 0; i < 12; i++) {
-            System.out.println(attributes[i]);
+//            System.out.println(attributes[i]);
             cb_id.addItem(attributes[i]);
             cb_curExp.addItem(attributes[i]);
             cb_designation.addItem(attributes[i]);
@@ -65,15 +65,10 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
     public String[] getHeaders(ArrayList<String> data) {
         String[] attributes = new String[12];
         if (data.size() != 0) {
-            String headers = data.get(0);
-            attributes = headers.split(";");
+            //String headers = data.get(0);
+            //attributes = headers.split(";");
             for (int i = 0; i < attributes.length; i++) {
-                //cleansing of header attributes
-                attributes[i] = attributes[i].replace("\"", "");
-                attributes[i] = attributes[i].replace("\'", "");
-                attributes[i] = attributes[i].replace("[", "");
-                attributes[i] = attributes[i].replace("]", "");
-
+                attributes[i] = data.get(i).trim().replace("\"", "");
             }
 
         } else {

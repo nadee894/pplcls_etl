@@ -16,11 +16,13 @@ def extractData(selectedFilePath):
 
     with open(filename, 'rU') as f:
         reader = csv.reader(f)
-        try:
-            for row in reader:
-                print (row)
-        except csv.Error as e:
-            sys.exit('file %s, line %d: %s' % (filename, reader.line_num, e))
+        line=reader.next()
+        print line
+        #try:
+         #   for row in reader:
+          #      print (row)
+        #except csv.Error as e:
+         #   sys.exit('file %s, line %d: %s' % (filename, reader.line_num, e))
 extractData(filepath)
 #extractData('D:\Important\Research Final Year\Research going on work\NBQSA\Data Set\RAW_DATA\employee_data.csv')
 #extractData('C:\Users\Gaya\Desktop\etl data\etl_data.csv')

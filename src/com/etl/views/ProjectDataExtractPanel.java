@@ -34,7 +34,8 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
     /**
      * Creates new form NewJPanel
      */
-    String selectedFilePath, selectedFileType;
+    String[] selectedFilePath;
+    String selectedFileType;
     final JFileChooser sourceFileChooser = new JFileChooser();
     Main main;
     ArrayList<String> output;
@@ -137,6 +138,11 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         btnExtract.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btnExtract.setText("Extract");
         btnExtract.setEnabled(false);
+        btnExtract.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnExtractMousePressed(evt);
+            }
+        });
         btnExtract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExtractActionPerformed(evt);
@@ -191,6 +197,11 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         );
 
         lblLoader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/etl/images/loader.gif"))); // NOI18N
+        lblLoader.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblLoaderMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -252,7 +263,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(280, 280, 280)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
@@ -301,10 +312,12 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         //Detect user click on Open or Cancel Button of JFilePicker
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFilePath = sourceFileChooser.getSelectedFile().getAbsolutePath();
-            String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
+            String selectedFilePathString = sourceFileChooser.getSelectedFile().getAbsolutePath();
+            String extension = selectedFilePathString.substring(selectedFilePathString.lastIndexOf(".") + 1, selectedFilePathString.length());
+
             if (selectedFileType.equals(extension)) {
-                tf_chooseFile.setText(selectedFilePath);
+                tf_chooseFile.setText(selectedFilePathString);
+                selectedFilePath = new String[]{selectedFilePathString};
                 btnExtract.setEnabled(true);
             } else {
                 Toolkit.getDefaultToolkit().beep();
@@ -321,30 +334,13 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
 
     private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
 
-        lblLoader.setVisible(true);
-        Runtime r = Runtime.getRuntime();
         output = new ArrayList<>();
+        ProjectDataExtractPanel projectDataExtractPanel = this;
 
-        try {
-            Process p = r.exec("python src/com/etl/pythonScripts/ExtractProjectData.py");
-            System.out.println("java " + selectedFilePath);
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = input.readLine()) != null) {
-                output.add(line);
+        Thread readData = new ProjectDataExtractPanel.PythonFileReader(this);
+        readData.start();
+        System.out.println("done");
 
-            }
-            ITProjectAttributeMapperPanel = new ITProjectAttributeMapperPanel(output, this);
-            this.projectAttributeMapper.removeAll();
-            this.projectAttributeMapper.add(ITProjectAttributeMapperPanel, "ITProjectAttributeMapperPanel", 0);
-            this.projectAttributeMapper.revalidate();
-
-            btnRawData.setVisible(true);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        lblLoader.setVisible(false);
     }//GEN-LAST:event_btnExtractActionPerformed
 
     private void btnRawDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRawDataActionPerformed
@@ -384,6 +380,48 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_chooseFileActionPerformed
 
+    private void lblLoaderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoaderMousePressed
+
+    }//GEN-LAST:event_lblLoaderMousePressed
+
+    private void btnExtractMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExtractMousePressed
+        lblLoader.setVisible(true);
+    }//GEN-LAST:event_btnExtractMousePressed
+
+    class PythonFileReader extends Thread {
+
+        private ProjectDataExtractPanel projectDataExtractPanel;
+
+        PythonFileReader(ProjectDataExtractPanel projectDataExtractPanel) {
+            this.projectDataExtractPanel = projectDataExtractPanel;
+        }
+
+        public void run() {
+            try {
+                Runtime r = Runtime.getRuntime();
+                String[] cmd = {"python", "D:/Important/Research Final Year/Research going on work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/ExtractProjecteData_working.py", selectedFilePath[0]};
+                Process p = r.exec(cmd);
+
+                BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String line;
+                while ((line = input.readLine()) != null) {
+                    output.add(line);
+                    System.out.println(line);
+
+                }
+                ITProjectAttributeMapperPanel = new ITProjectAttributeMapperPanel(output, this.projectDataExtractPanel);
+
+                this.projectDataExtractPanel.projectAttributeMapper.removeAll();
+                this.projectDataExtractPanel.projectAttributeMapper.add(ITProjectAttributeMapperPanel, "ITEmployeeAttributeMapperPanel", 0);
+                this.projectDataExtractPanel.projectAttributeMapper.revalidate();
+
+                btnRawData.setVisible(true);
+                lblLoader.setVisible(false);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowse;

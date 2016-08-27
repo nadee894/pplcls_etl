@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Gaya
  */
 public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
-    
+
     private ProjectDataExtractPanel projectDataExtractPanel;
 
     /**
@@ -47,20 +47,20 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
             cb_empWrkActEndDate.addItem(attributes[i]);
 
         }
-        
+
         cb_projectName.setSelectedIndex(0);
-            cb_employeeName.setSelectedIndex(1);
-            cb_woRecDate.setSelectedIndex(2);
-            cb_estEndDate.setSelectedIndex(3);
-            cb_projectValue.setSelectedIndex(4);
-            cb_workToBeDone.setSelectedIndex(5);
-            cb_description.setSelectedIndex(6);
-            cb_type.setSelectedIndex(7);
-            cb_workloadPlanned.setSelectedIndex(8);
-            cb_workloadActual.setSelectedIndex(9);
-            cb_empWrkStartDate.setSelectedIndex(10);
-            cb_empWrkEstEndDate.setSelectedIndex(11);
-            cb_empWrkActEndDate.setSelectedIndex(12);
+        cb_employeeName.setSelectedIndex(1);
+        cb_woRecDate.setSelectedIndex(2);
+        cb_estEndDate.setSelectedIndex(3);
+        cb_projectValue.setSelectedIndex(4);
+        cb_workToBeDone.setSelectedIndex(5);
+        cb_description.setSelectedIndex(6);
+        cb_type.setSelectedIndex(7);
+        cb_workloadPlanned.setSelectedIndex(8);
+        cb_workloadActual.setSelectedIndex(9);
+        cb_empWrkStartDate.setSelectedIndex(10);
+        cb_empWrkEstEndDate.setSelectedIndex(11);
+        cb_empWrkActEndDate.setSelectedIndex(12);
         this.projectDataExtractPanel.btnNext.setEnabled(true);
     }
 
@@ -68,15 +68,9 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
         String[] attributes = new String[13];
 
         if (data.size() != 0) {
-            String headers = data.get(0);
-            attributes = headers.split(";");
+
             for (int i = 0; i < attributes.length; i++) {
-                //cleansing of header attributes
-                attributes[i] = attributes[i].replace("\"", "");
-                attributes[i] = attributes[i].replace("\'", "");
-                attributes[i] = attributes[i].replace("[", "");
-                attributes[i] = attributes[i].replace("]", "");
-               
+                attributes[i] = data.get(i).trim().replace("\"", "");
             }
         } else {
             Toolkit.getDefaultToolkit().beep();
@@ -87,16 +81,16 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
 
     public Integer[] insertProjectMappedData() {
         Integer[] mappedAttributes = new Integer[13];
-     
+
         int projectName = cb_projectName.getSelectedIndex();
-        int employeeName = (Integer)cb_employeeName.getSelectedIndex();
+        int employeeName = (Integer) cb_employeeName.getSelectedIndex();
         int woRecDate = cb_woRecDate.getSelectedIndex();
         int estEndDate = cb_estEndDate.getSelectedIndex();
         int projectValue = cb_projectValue.getSelectedIndex();
         int workToBeDone = cb_workToBeDone.getSelectedIndex();
         int description = cb_description.getSelectedIndex();
         int type = cb_type.getSelectedIndex();
-        int workloadPlanned = cb_workloadPlanned.getSelectedIndex();        
+        int workloadPlanned = cb_workloadPlanned.getSelectedIndex();
         int workloadActual = cb_workloadActual.getSelectedIndex();
         int empWrkStartDate = cb_empWrkStartDate.getSelectedIndex();
         int empWrkEndDate = cb_empWrkEstEndDate.getSelectedIndex();
