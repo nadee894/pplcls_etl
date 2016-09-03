@@ -82,6 +82,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         Integer[] mappedAttributes = new Integer[12];
 
         int id = cb_id.getSelectedIndex();
+        
         int title = cb_title.getSelectedIndex();
         int first_name = cb_firstName.getSelectedIndex();
         int last_name = cb_lastName.getSelectedIndex();

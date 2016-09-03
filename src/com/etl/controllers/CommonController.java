@@ -17,6 +17,10 @@ public class CommonController {
     DBService service = new DBService();
 
     public int insertEmployeeMappedData(String[] mappedColumns, Integer[] index) throws ClassNotFoundException, SQLException {
+        System.out.println("inside service class");
+//        for(int i=0;i<mappedColumns.length;i++){
+//            System.out.println("mappedColumn "+mappedColumns[i]);
+//        }
         return service.insertEmployeeMappedTable(mappedColumns, index);
         
     }

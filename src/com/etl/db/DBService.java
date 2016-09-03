@@ -23,7 +23,7 @@ public class DBService {
 
     public int insertEmployeeMappedTable(String[] mappedColumns, Integer[] index) throws ClassNotFoundException, SQLException {
         Connection con = DBConnection.getConnectionToDB();
-
+        System.out.println(mappedColumns[index[2]]);
         String query = "INSERT INTO `pplcls`.`employeemappeddata`"
                 + "(`id`,`title`,`first_name`,`last_name`,`emp_gender`,`email`,`age`,`designation`,`educational_qualification`,"
                 + "`working_experience_current`,`working_experience_Previous`,`is_pmp_certified`)"
@@ -31,6 +31,7 @@ public class DBService {
                 + "(" + mappedColumns[index[0]] + "," + mappedColumns[index[1]] + "," + mappedColumns[index[2]] + "," + mappedColumns[index[3]] + "," + mappedColumns[index[4]] + ","
                 + mappedColumns[index[5]] + "," + mappedColumns[index[6]] + "," + mappedColumns[index[7]] + "," + mappedColumns[index[8]] + "," + mappedColumns[index[9]] + ","
                 + mappedColumns[index[10]] + "," + mappedColumns[index[11]] + ")";
+        System.out.println(query);
         int res = DBHandler.setData(con, query);
         return res;
     }

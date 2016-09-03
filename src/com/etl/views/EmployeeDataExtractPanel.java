@@ -340,7 +340,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
 //                ArrayList<String> indexedOutput = new ArrayList<>();
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        
+                        System.out.println("inside thread");
                         new UploaderPopup(ITEmployeeAttributeMapperPanel, main, output);
                         
                     }
@@ -376,7 +376,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                 String line;
                 while ((line = input.readLine()) != null) {
                     output.add(line);
-                    System.out.println(line);
+//                    System.out.println(line);
                     
                 }
                 ITEmployeeAttributeMapperPanel = new ITEmployeeAttributeMapperPanel(output, this.employeeDataExtractPanel);

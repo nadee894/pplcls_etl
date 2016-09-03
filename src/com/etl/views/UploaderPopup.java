@@ -45,7 +45,7 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
     public static ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel;
     public static Main main;
     public static ArrayList data;
-
+    public static ArrayList data2;
     private UploaderPopup() {
     }
 
@@ -56,6 +56,7 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
          */
         @Override
         public Void doInBackground() throws IOException, ClassNotFoundException, SQLException {
+            System.out.println("doInBackground");
             Random random = new Random();
             int progress = 0;
 
@@ -84,28 +85,31 @@ public class UploaderPopup extends JPanel implements PropertyChangeListener {
             CommonController common = new CommonController();
             int count = 0;
             Runtime r = Runtime.getRuntime();
+            System.out.println("data size : " +data.size());
+           
             for (int i = 0; i < data.size(); i++) {
-                if (data.get(i).toString().isEmpty() || data.get(i).toString() == "") {
-                    dataline[count] = "NULL";
-                } else {
-                    dataline[count] = (String) data.get(i);
-                }
+                System.out.println(data.get(i).toString().trim().replace("\"", ""));
+//                if (data.get(i).toString().isEmpty() || data.get(i).toString() == "") {
+//                    dataline[count] = "NULL";
+//                } else {
+//                    
+//                    dataline[count] = (String) data.get(i).toString().trim().replace("\"", "");
+////                    System.out.println("data line " + dataline[count]);
+//                }
                 ++count;
-                 System.out.println(i);
-                if (count == 76) {
-                    System.out.println(1);
-                    int res = common.insertEmployeeMappedData(dataline, UploaderPopup.ITEmployeeAttributeMapperPanel.insertEmployeeMappedData());
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException ignore) {
+                System.out.println("count "+count);
+                
+//                if (count == 76) {
+//                    System.out.println(1);
+//                    int res = common.insertEmployeeMappedData(dataline, UploaderPopup.ITEmployeeAttributeMapperPanel.insertEmployeeMappedData());
+//
+//                    if (res == 1) {
+//                        progress += data.size() / 76;
+//                        setProgress(progress);
+//                        count = 0;
+//                        dataline = new String[76];
 //                    }
-                    if (res == 1) {
-                        progress += data.size() / 76;
-                        setProgress(progress);
-                        count = 0;
-                        dataline = new String[76];
-                    }
-                }
+//                }
             }
 
             return null;
