@@ -9,7 +9,7 @@ def extractData(selectedFilePath,header):
     csvDataTable = etl.fromcsv(selectedFilePath,header=None)
     filename = selectedFilePath
 #Print csv data
-    with open(filename, 'rU') as f,open('C:\\Users\\Nadeesha\\Documents\\modified.csv','w', newline='') as f2:
+    with open(filename, 'rU') as f,open('C:\\Users\\Nadeesha\\Documents\\employeeMappedData.csv','w', newline='') as f2:
         reader = csv.reader(f)
         f.__next__()
         writer=csv.writer(f2)

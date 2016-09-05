@@ -25,7 +25,7 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public ITProjectAttributeMapperPanel(ArrayList<String> data, ProjectDataExtractPanel projectDataExtractPanel) {
+    public ITProjectAttributeMapperPanel(String data, ProjectDataExtractPanel projectDataExtractPanel) {
         initComponents();
         String[] attributes = getHeaders(data);
         this.projectDataExtractPanel = projectDataExtractPanel;
@@ -64,13 +64,14 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
         this.projectDataExtractPanel.btnNext.setEnabled(true);
     }
 
-    public String[] getHeaders(ArrayList<String> data) {
+    public String[] getHeaders(String data) {
         String[] attributes = new String[13];
 
-        if (data.size() != 0) {
-
+        if (!data.isEmpty()) {
+            //String headers = data.get(0);
+            attributes = data.split(";");
             for (int i = 0; i < attributes.length; i++) {
-                attributes[i] = data.get(i).trim().replace("\"", "");
+                attributes[i] = attributes[i].trim().replace("\"", "").replace("[", "").replace("]", "").replace("'", "");
             }
         } else {
             Toolkit.getDefaultToolkit().beep();
@@ -79,8 +80,42 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
         return attributes;
     }
 
-    public Integer[] insertProjectMappedData() {
-        Integer[] mappedAttributes = new Integer[13];
+//    public Integer[] insertProjectMappedData() {
+//        Integer[] mappedAttributes = new Integer[13];
+//
+//        int projectName = cb_projectName.getSelectedIndex();
+//        int employeeName = (Integer) cb_employeeName.getSelectedIndex();
+//        int woRecDate = cb_woRecDate.getSelectedIndex();
+//        int estEndDate = cb_estEndDate.getSelectedIndex();
+//        int projectValue = cb_projectValue.getSelectedIndex();
+//        int workToBeDone = cb_workToBeDone.getSelectedIndex();
+//        int description = cb_description.getSelectedIndex();
+//        int type = cb_type.getSelectedIndex();
+//        int workloadPlanned = cb_workloadPlanned.getSelectedIndex();
+//        int workloadActual = cb_workloadActual.getSelectedIndex();
+//        int empWrkStartDate = cb_empWrkStartDate.getSelectedIndex();
+//        int empWrkEndDate = cb_empWrkEstEndDate.getSelectedIndex();
+//        int empWrkActEndDate = cb_empWrkActEndDate.getSelectedIndex();
+//
+//        mappedAttributes[0] = projectName;
+//        mappedAttributes[1] = employeeName;
+//        mappedAttributes[2] = woRecDate;
+//        mappedAttributes[3] = estEndDate;
+//        mappedAttributes[4] = projectValue;
+//        mappedAttributes[5] = workToBeDone;
+//        mappedAttributes[6] = description;
+//        mappedAttributes[7] = type;
+//        mappedAttributes[8] = workloadPlanned;
+//        mappedAttributes[9] = workloadActual;
+//        mappedAttributes[10] = empWrkStartDate;
+//        mappedAttributes[11] = empWrkEndDate;
+//        mappedAttributes[12] = empWrkActEndDate;
+//
+//        return mappedAttributes;
+//    }
+    public String setHeader() {
+        String[] mappedAttributes = new String[14];
+        String header;
 
         int projectName = cb_projectName.getSelectedIndex();
         int employeeName = (Integer) cb_employeeName.getSelectedIndex();
@@ -96,21 +131,24 @@ public class ITProjectAttributeMapperPanel extends javax.swing.JPanel {
         int empWrkEndDate = cb_empWrkEstEndDate.getSelectedIndex();
         int empWrkActEndDate = cb_empWrkActEndDate.getSelectedIndex();
 
-        mappedAttributes[0] = projectName;
-        mappedAttributes[1] = employeeName;
-        mappedAttributes[2] = woRecDate;
-        mappedAttributes[3] = estEndDate;
-        mappedAttributes[4] = projectValue;
-        mappedAttributes[5] = workToBeDone;
-        mappedAttributes[6] = description;
-        mappedAttributes[7] = type;
-        mappedAttributes[8] = workloadPlanned;
-        mappedAttributes[9] = workloadActual;
-        mappedAttributes[10] = empWrkStartDate;
-        mappedAttributes[11] = empWrkEndDate;
-        mappedAttributes[12] = empWrkActEndDate;
+        mappedAttributes[projectName] = "projectName";
+        mappedAttributes[employeeName] = "employeeName";
+        mappedAttributes[woRecDate] = "woRecDate";
+        mappedAttributes[estEndDate] = "estEndDate";
+        mappedAttributes[projectValue] = "projectValue";
+        mappedAttributes[workToBeDone] = "workToBeDone";
+        mappedAttributes[description] = "description";
+        mappedAttributes[type] = "type";
+        mappedAttributes[workloadPlanned] = "workloadPlanned";
+        mappedAttributes[workloadActual] = "";
+        mappedAttributes[empWrkStartDate] = "empWrkStartDate";
+        mappedAttributes[empWrkEndDate] = "empWrkEndDate";
+        mappedAttributes[empWrkActEndDate] = "empWrkActEndDate";
 
-        return mappedAttributes;
+        header = mappedAttributes[1] + ";" + mappedAttributes[2] + ";" + mappedAttributes[3] + ";" + mappedAttributes[4] + ";"
+                + mappedAttributes[5] + ";" + mappedAttributes[6] + ";" + mappedAttributes[7] + ";" + mappedAttributes[8] + ";"
+                + mappedAttributes[9] + ";" + mappedAttributes[10] + ";" + mappedAttributes[11] + ";" + mappedAttributes[12];
+        return header;
     }
 
     /**

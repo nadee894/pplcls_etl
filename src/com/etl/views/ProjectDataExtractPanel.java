@@ -315,7 +315,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
             String selectedFilePathString = sourceFileChooser.getSelectedFile().getAbsolutePath();
             String extension = selectedFilePathString.substring(selectedFilePathString.lastIndexOf(".") + 1, selectedFilePathString.length());
 
-            if (selectedFileType.equals(extension) && selectedFilePathString!=null) {
+            if (selectedFileType.equals(extension) && selectedFilePathString != null) {
                 tf_chooseFile.setText(selectedFilePathString);
                 selectedFilePath = new String[]{selectedFilePathString};
                 btnExtract.setEnabled(true);
@@ -349,7 +349,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         Toolkit.getDefaultToolkit().beep();
-        int msg = JOptionPane.showConfirmDialog(null, "Are you sure? Once the data inserted to the database cannot be undone", "Confirmation!", JOptionPane.YES_NO_OPTION);
+        int msg = JOptionPane.showConfirmDialog(null, "Are you sure? Mapping Data cannot be undone", "Confirmation!", JOptionPane.YES_NO_OPTION);
         if (msg == JOptionPane.YES_OPTION) {
             if (tf_chooseFile.getText().equals("")) {
                 Toolkit.getDefaultToolkit().beep();
@@ -363,8 +363,20 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                     javax.swing.SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
 
-                            new UploaderPopupProject(input, ITProjectAttributeMapperPanel, main, 13 * output.size());
+                            try {
+                                Runtime r = Runtime.getRuntime();
+                                String header = ITProjectAttributeMapperPanel.setHeader();
+                                System.out.println(header);
+                                String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/ReplaceHeader_projectData.py", selectedFilePath[0], header};
+                                Process p = r.exec(cmd);
 
+                                BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                                String line = input.readLine();
+                                JOptionPane.showMessageDialog(null, "Mapping attributes Succesfully Completed", "People Clues", 1);
+                                new ETLSelectionView(null, true, main).setVisible(true);
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
                         }
                     });
 
@@ -399,17 +411,17 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
         public void run() {
             try {
                 Runtime r = Runtime.getRuntime();
-                String[] cmd = {"python", "D:/Important/Research Final Year/Research going on work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/ExtractProjecteData_working.py", selectedFilePath[0]};
+                String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/GetHeader_projectData.py", selectedFilePath[0]};
                 Process p = r.exec(cmd);
 
                 BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String line;
-                while ((line = input.readLine()) != null) {
-                    output.add(line);
-                    System.out.println(line);
-
-                }
-                ITProjectAttributeMapperPanel = new ITProjectAttributeMapperPanel(output, this.projectDataExtractPanel);
+                String line = input.readLine();
+//                while ((line = input.readLine()) != null) {
+//                    output.add(line);
+//                    System.out.println(line);
+//
+//                }
+                ITProjectAttributeMapperPanel = new ITProjectAttributeMapperPanel(line, this.projectDataExtractPanel);
 
                 this.projectDataExtractPanel.projectAttributeMapper.removeAll();
                 this.projectDataExtractPanel.projectAttributeMapper.add(ITProjectAttributeMapperPanel, "ITEmployeeAttributeMapperPanel", 0);
