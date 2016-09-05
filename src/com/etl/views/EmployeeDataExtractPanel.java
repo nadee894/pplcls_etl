@@ -33,11 +33,11 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     final JFileChooser sourceFileChooser = new JFileChooser();
     Main main;
     ArrayList<String> output;
-    
+
     ITEmployeeAttributeMapperPanel ITEmployeeAttributeMapperPanel;
     String[] mappedColumns;
     final ImageIcon icon = new ImageIcon("src//com//etl//images//loader.gif");
-    
+
     public EmployeeDataExtractPanel() {
         initComponents();
         btnPreviouse.setVisible(false);
@@ -48,9 +48,9 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         }
         //Get the selected File type
         selectedFileType = cb_selectFileType.getSelectedItem().toString();
-        
+
     }
-    
+
     public EmployeeDataExtractPanel(Main main) {
         initComponents();
         btnPreviouse.setVisible(false);
@@ -286,17 +286,21 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cb_selectFileTypeActionPerformed
 
     private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
-        
-        selectedFileType = cb_selectFileType.getSelectedItem().toString();
-        int result = sourceFileChooser.showOpenDialog(this);
-        
-        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(selectedFileType, selectedFileType);
-        sourceFileChooser.setFileFilter(fileFilter);
-        //Detect user click on Open or Cancel Button of JFilePicker
 
+        selectedFileType = cb_selectFileType.getSelectedItem().toString();
+        System.out.println("selected file type: " + selectedFileType);
+
+        int result = sourceFileChooser.showOpenDialog(this);
+
+//        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(selectedFileType, selectedFileType);
+//        sourceFileChooser.setFileFilter(fileFilter);
+        //Detect user click on Open or Cancel Button of JFilePicker
         if (result == JFileChooser.APPROVE_OPTION) {
             String selectedFilePathString = sourceFileChooser.getSelectedFile().getAbsolutePath();
+            selectedFilePathString = sourceFileChooser.getSelectedFile().getAbsolutePath();
             String extension = selectedFilePathString.substring(selectedFilePathString.lastIndexOf(".") + 1, selectedFilePathString.length());
+            System.out.println(extension);
+            System.out.println(selectedFileType);
             if (selectedFileType.equals(extension)) {
                 tf_chooseFile.setText(selectedFilePathString);
                 selectedFilePath = new String[]{selectedFilePathString};
@@ -306,7 +310,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                 tf_chooseFile.setText(properties.EMPTY);
                 btnExtract.setEnabled(false);
             }
-            
+
         } else if (result == JFileChooser.CANCEL_OPTION) {
             tf_chooseFile.setText(properties.EMPTY);
             btnExtract.setEnabled(false);
@@ -314,14 +318,14 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBrowseActionPerformed
 
     private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
-        
+
         output = new ArrayList<>();
         EmployeeDataExtractPanel employeeDataExtractPanel = this;
-        
+
         Thread readData = new PythonFileReader(this);
         readData.start();
         System.out.println("done");
-        
+
 
     }//GEN-LAST:event_btnExtractActionPerformed
 
@@ -342,10 +346,10 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                     public void run() {
                         System.out.println("inside thread");
                         new UploaderPopup(ITEmployeeAttributeMapperPanel, main, output);
-                        
+
                     }
                 });
-                
+
             }
         }
     }//GEN-LAST:event_btnNextActionPerformed
@@ -357,11 +361,11 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     private void btnExtractMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExtractMousePressed
         lblLoading.setVisible(true);
     }//GEN-LAST:event_btnExtractMousePressed
-    
+
     class PythonFileReader extends Thread {
 
         private EmployeeDataExtractPanel employeeDataExtractPanel;
-        
+
         PythonFileReader(EmployeeDataExtractPanel employeeDataExtractPanel) {
             this.employeeDataExtractPanel = employeeDataExtractPanel;
         }
@@ -369,22 +373,24 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         public void run() {
             try {
                 Runtime r = Runtime.getRuntime();
-                String[] cmd = {"python", "D:/Important/Research Final Year/Research going on work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/ExtractEmployeeData_working.py", selectedFilePath[0]};
+                String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/ExtractEmployeeData_working.py", selectedFilePath[0]};
+                System.out.println(selectedFilePath[0]);
                 Process p = r.exec(cmd);
-                
+
                 BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String line;
                 while ((line = input.readLine()) != null) {
                     output.add(line);
 //                    System.out.println(line);
-                    
+                    break;
+
                 }
                 ITEmployeeAttributeMapperPanel = new ITEmployeeAttributeMapperPanel(output, this.employeeDataExtractPanel);
-                
+
                 this.employeeDataExtractPanel.employeeAttributeMapper.removeAll();
                 this.employeeDataExtractPanel.employeeAttributeMapper.add(ITEmployeeAttributeMapperPanel, "ITEmployeeAttributeMapperPanel", 0);
                 this.employeeDataExtractPanel.employeeAttributeMapper.revalidate();
-                
+
                 btnRawData.setVisible(true);
                 lblLoading.setVisible(false);
             } catch (IOException ex) {

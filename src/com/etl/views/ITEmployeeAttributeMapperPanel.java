@@ -78,12 +78,45 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         return attributes;
     }
 
-    public Integer[] insertEmployeeMappedData() {
-        Integer[] mappedAttributes = new Integer[12];
+//    public Integer[] insertEmployeeMappedData() {
+//        Integer[] mappedAttributes = new Integer[12];
+//
+//        int id = cb_id.getSelectedIndex();
+//        
+//        int title = cb_title.getSelectedIndex();        
+//        int first_name = cb_firstName.getSelectedIndex();
+//        int last_name = cb_lastName.getSelectedIndex();
+//        int emp_gender = cb_empGender.getSelectedIndex();
+//        int email = cb_email.getSelectedIndex();
+//        int age = cb_age.getSelectedIndex();
+//        int designation = cb_designation.getSelectedIndex();
+//        int educational_qualification = cb_eduQual.getSelectedIndex();
+//        int working_experience_current = cb_curExp.getSelectedIndex();
+//        int working_experience_previous = cb_pastExp.getSelectedIndex();
+//        int is_pmp_certified = cb_isPmp.getSelectedIndex();
+//
+//        mappedAttributes[0] = id;
+//        mappedAttributes[1] = title;
+//        mappedAttributes[2] = first_name;
+//        mappedAttributes[3] = last_name;
+//        mappedAttributes[4] = emp_gender;
+//        mappedAttributes[5] = email;
+//        mappedAttributes[6] = age;
+//        mappedAttributes[7] = designation;
+//        mappedAttributes[8] = educational_qualification;
+//        mappedAttributes[9] = working_experience_current;
+//        mappedAttributes[10] = working_experience_previous;
+//        mappedAttributes[11] = is_pmp_certified;
+//
+//        return mappedAttributes;
+//    }
+//    
+     public String[] setHeader() {
+        String[] mappedAttributes = new String[12];
 
         int id = cb_id.getSelectedIndex();
         
-        int title = cb_title.getSelectedIndex();
+        int title = cb_title.getSelectedIndex();        
         int first_name = cb_firstName.getSelectedIndex();
         int last_name = cb_lastName.getSelectedIndex();
         int emp_gender = cb_empGender.getSelectedIndex();
@@ -95,18 +128,18 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         int working_experience_previous = cb_pastExp.getSelectedIndex();
         int is_pmp_certified = cb_isPmp.getSelectedIndex();
 
-        mappedAttributes[0] = id;
-        mappedAttributes[1] = title;
-        mappedAttributes[2] = first_name;
-        mappedAttributes[3] = last_name;
-        mappedAttributes[4] = emp_gender;
-        mappedAttributes[5] = email;
-        mappedAttributes[6] = age;
-        mappedAttributes[7] = designation;
-        mappedAttributes[8] = educational_qualification;
-        mappedAttributes[9] = working_experience_current;
-        mappedAttributes[10] = working_experience_previous;
-        mappedAttributes[11] = is_pmp_certified;
+        mappedAttributes[id] = "id";
+        mappedAttributes[title] = "title";
+        mappedAttributes[first_name] = "first_name";
+        mappedAttributes[last_name] = "last_name";
+        mappedAttributes[emp_gender] = "emp_gender";
+        mappedAttributes[email] = "email";
+        mappedAttributes[age] = "age";
+        mappedAttributes[designation] = "designation";
+        mappedAttributes[educational_qualification] = "educational_qualification";
+        mappedAttributes[working_experience_current] = "working_experience_current";
+        mappedAttributes[working_experience_previous] = "working_experience_previous";
+        mappedAttributes[is_pmp_certified] = "is_pmp_certified";
 
         return mappedAttributes;
     }

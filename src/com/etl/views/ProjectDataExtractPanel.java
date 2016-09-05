@@ -315,7 +315,7 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
             String selectedFilePathString = sourceFileChooser.getSelectedFile().getAbsolutePath();
             String extension = selectedFilePathString.substring(selectedFilePathString.lastIndexOf(".") + 1, selectedFilePathString.length());
 
-            if (selectedFileType.equals(extension)) {
+            if (selectedFileType.equals(extension) && selectedFilePathString!=null) {
                 tf_chooseFile.setText(selectedFilePathString);
                 selectedFilePath = new String[]{selectedFilePathString};
                 btnExtract.setEnabled(true);

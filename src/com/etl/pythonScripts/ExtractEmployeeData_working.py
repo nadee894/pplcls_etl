@@ -2,7 +2,6 @@ import sys
 import pandas as pd
 import numpy as np
 
-
 path=sys.argv[1]
 filepath=path.replace('\\','/')
 df = pd.read_csv(filepath,header=None)
