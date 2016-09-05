@@ -24,7 +24,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public ITEmployeeAttributeMapperPanel(ArrayList<String> data, EmployeeDataExtractPanel employeeDataExtractPanel) {
+    public ITEmployeeAttributeMapperPanel(String data, EmployeeDataExtractPanel employeeDataExtractPanel) {
         initComponents();
         String[] attributes = getHeaders(data);
         this.employeeDataExtractPanel = employeeDataExtractPanel;
@@ -32,6 +32,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         //Load file types to the combo box
         for (int i = 0; i < 12; i++) {
 //            System.out.println(attributes[i]);
+            
             cb_id.addItem(attributes[i]);
             cb_curExp.addItem(attributes[i]);
             cb_designation.addItem(attributes[i]);
@@ -46,29 +47,30 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
             cb_title.addItem(attributes[i]);
         }
         //dynamic later
-        cb_id.setSelectedIndex(0);
-        cb_curExp.setSelectedIndex(9);
-        cb_designation.setSelectedIndex(7);
-        cb_eduQual.setSelectedIndex(8);
-        cb_email.setSelectedIndex(5);
-        cb_empGender.setSelectedIndex(4);
-        cb_firstName.setSelectedIndex(2);
-        cb_age.setSelectedIndex(6);
-        cb_lastName.setSelectedIndex(3);
+        cb_id.setSelectedIndex(1);
+        cb_curExp.setSelectedIndex(10);
+        cb_designation.setSelectedIndex(8);
+        cb_eduQual.setSelectedIndex(9);
+        cb_email.setSelectedIndex(6);
+        cb_empGender.setSelectedIndex(5);
+        cb_firstName.setSelectedIndex(3);
+        cb_age.setSelectedIndex(7);
+        cb_lastName.setSelectedIndex(4);
         cb_isPmp.setSelectedIndex(0);
-        cb_pastExp.setSelectedIndex(10);
-        cb_title.setSelectedIndex(1);
+        cb_pastExp.setSelectedIndex(11);
+        cb_title.setSelectedIndex(2);
 
         this.employeeDataExtractPanel.btnNext.setEnabled(true);
     }
 
-    public String[] getHeaders(ArrayList<String> data) {
+    public String[] getHeaders(String data) {
         String[] attributes = new String[12];
-        if (data.size() != 0) {
+
+        if (!data.isEmpty()) {
             //String headers = data.get(0);
-            //attributes = headers.split(";");
+            attributes = data.split(";");
             for (int i = 0; i < attributes.length; i++) {
-                attributes[i] = data.get(i).trim().replace("\"", "");
+                attributes[i] = attributes[i].trim().replace("\"", "").replace("[", "").replace("]", "").replace("'", "");
             }
 
         } else {
@@ -111,12 +113,12 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
 //        return mappedAttributes;
 //    }
 //    
-     public String[] setHeader() {
-        String[] mappedAttributes = new String[12];
+    public String setHeader() {
+        String[] mappedAttributes = new String[13];
+        String header;
 
         int id = cb_id.getSelectedIndex();
-        
-        int title = cb_title.getSelectedIndex();        
+        int title = cb_title.getSelectedIndex();
         int first_name = cb_firstName.getSelectedIndex();
         int last_name = cb_lastName.getSelectedIndex();
         int emp_gender = cb_empGender.getSelectedIndex();
@@ -127,7 +129,8 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         int working_experience_current = cb_curExp.getSelectedIndex();
         int working_experience_previous = cb_pastExp.getSelectedIndex();
         int is_pmp_certified = cb_isPmp.getSelectedIndex();
-
+        System.out.println("id "+id);
+        System.out.println("is_pmp_certified "+is_pmp_certified);
         mappedAttributes[id] = "id";
         mappedAttributes[title] = "title";
         mappedAttributes[first_name] = "first_name";
@@ -141,7 +144,10 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         mappedAttributes[working_experience_previous] = "working_experience_previous";
         mappedAttributes[is_pmp_certified] = "is_pmp_certified";
 
-        return mappedAttributes;
+        header = mappedAttributes[1] + ";" + mappedAttributes[2] + ";" + mappedAttributes[3] + ";" + mappedAttributes[4] + ";"
+                + mappedAttributes[5] + ";" + mappedAttributes[6] + ";" + mappedAttributes[7] + ";" + mappedAttributes[8] + ";"
+                + mappedAttributes[9] + ";" + mappedAttributes[10] + ";" + mappedAttributes[11] + ";" + mappedAttributes[12];
+        return header;
     }
 
     /**
@@ -189,6 +195,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("ID");
 
+        cb_id.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_id.setToolTipText("");
         cb_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,6 +207,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Title");
 
+        cb_title.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_title.setToolTipText("");
         cb_title.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,6 +215,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
             }
         });
 
+        cb_firstName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_firstName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_firstNameActionPerformed(evt);
@@ -221,12 +230,14 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel7.setText("Last Name");
 
+        cb_lastName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_lastName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_lastNameActionPerformed(evt);
             }
         });
 
+        cb_age.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_age.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_ageActionPerformed(evt);
@@ -241,12 +252,14 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel9.setText("Email");
 
+        cb_email.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_emailActionPerformed(evt);
             }
         });
 
+        cb_empGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_empGender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_empGenderActionPerformed(evt);
@@ -261,12 +274,14 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         jLabel18.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel18.setText("Designation");
 
+        cb_designation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_designation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_designationActionPerformed(evt);
             }
         });
 
+        cb_eduQual.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_eduQual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_eduQualActionPerformed(evt);
@@ -281,6 +296,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         jLabel21.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel21.setText("Past Experience");
 
+        cb_pastExp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_pastExp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_pastExpActionPerformed(evt);
@@ -291,7 +307,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         jLabel38.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel38.setText("PMP Quaified");
 
-        cb_isPmp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        cb_isPmp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_isPmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_isPmpActionPerformed(evt);
@@ -301,6 +317,7 @@ public class ITEmployeeAttributeMapperPanel extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setText("Employee Attribute Mapper");
 
+        cb_curExp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cb_curExp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_curExpActionPerformed(evt);

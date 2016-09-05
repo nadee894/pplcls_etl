@@ -1,4 +1,3 @@
-from StringIO import StringIO
 import csv
 import petl as etl
 import sys
@@ -15,10 +14,11 @@ def extractData(selectedFilePath):
         try:
             for row in reader:
                 print (row)
+                break
         except csv.Error as e:
             sys.exit('file %s, line %d: %s' % (filename, reader.line_num, e))
 
-extractData('D:\Important\Research Final Year\Research going on work\NBQSA\Data Set\RAW_DATA\project_history.csv')
+extractData(sys.argv[1])
 #read csv data and extract
 #csvDataTable = etl.fromcsv('D:\Important\Research work\NBQSA\Data Set\RAW_DATA\project_history.csv')
 #filename = 'D:\Important\Research work\NBQSA\Data Set\RAW_DATA\project_history.csv'

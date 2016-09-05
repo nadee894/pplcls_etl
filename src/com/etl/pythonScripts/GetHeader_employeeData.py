@@ -14,10 +14,11 @@ def extractData(selectedFilePath):
         try:
             for row in reader:
                 print (row)
+                break
         except csv.Error as e:
             sys.exit('file %s, line %d: %s' % (filename, reader.line_num, e))
 
-extractData('C:\\Users\\Nadeesha\\Documents\\employee_data_test.csv')
+extractData(sys.argv[1])
 #extractData('D:\Important\Research Final Year\Research going on work\NBQSA\Data Set\RAW_DATA\employee_data.csv')
 #extractData('C:\Users\Gaya\Desktop\etl data\etl_data.csv')
 #read csv data and extract

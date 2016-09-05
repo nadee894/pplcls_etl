@@ -335,7 +335,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         Toolkit.getDefaultToolkit().beep();
-        int msg = JOptionPane.showConfirmDialog(null, "Are you sure? Once the data inserted to the database cannot be undone", "Confirmation!", JOptionPane.YES_NO_OPTION);
+        int msg = JOptionPane.showConfirmDialog(null, "Are you sure? Mapping Data cannot be undone", "Confirmation!", JOptionPane.YES_NO_OPTION);
         if (msg == JOptionPane.YES_OPTION) {
             if (tf_chooseFile.getText().equals("")) {
                 Toolkit.getDefaultToolkit().beep();
@@ -344,14 +344,30 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
 //                ArrayList<String> indexedOutput = new ArrayList<>();
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        System.out.println("inside thread");
-                        new UploaderPopup(ITEmployeeAttributeMapperPanel, main, output);
+                        try {
+                            //                        System.out.println("inside thread");
+//                        new UploaderPopup(ITEmployeeAttributeMapperPanel, main, output);
+                            Runtime r = Runtime.getRuntime();
+                            String header=ITEmployeeAttributeMapperPanel.setHeader();
+                            System.out.println(header);
+                            String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/ReplaceHeader_employeeData.py",selectedFilePath[0] ,header};
+                            Process p = r.exec(cmd);
+
+                            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                            String line = input.readLine();
+                            main.contentPanel.removeAll();
+                            main.contentPanel.add(new ProjectDataExtractPanel(main), "ProjectDataExtractPanel", 0);
+                            main.contentPanel.revalidate();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
 
                     }
                 });
 
             }
         }
+
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void tf_chooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_chooseFileActionPerformed
@@ -373,19 +389,19 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
         public void run() {
             try {
                 Runtime r = Runtime.getRuntime();
-                String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/ExtractEmployeeData_working.py", selectedFilePath[0]};
+                String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/GetHeader_employeeData.py", selectedFilePath[0]};
                 System.out.println(selectedFilePath[0]);
                 Process p = r.exec(cmd);
 
                 BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String line;
-                while ((line = input.readLine()) != null) {
-                    output.add(line);
+                String line = input.readLine();
+//                while ((line = input.readLine()) != null) {
+//                    output.add(line);
 //                    System.out.println(line);
-                    break;
-
-                }
-                ITEmployeeAttributeMapperPanel = new ITEmployeeAttributeMapperPanel(output, this.employeeDataExtractPanel);
+//                    
+//
+//                }
+                ITEmployeeAttributeMapperPanel = new ITEmployeeAttributeMapperPanel(line, this.employeeDataExtractPanel);
 
                 this.employeeDataExtractPanel.employeeAttributeMapper.removeAll();
                 this.employeeDataExtractPanel.employeeAttributeMapper.add(ITEmployeeAttributeMapperPanel, "ITEmployeeAttributeMapperPanel", 0);
