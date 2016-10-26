@@ -6,7 +6,6 @@
 package com.etl.views;
 
 import com.etl.controllers.properties;
-import java.awt.List;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +16,6 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -288,7 +286,6 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
 
         selectedFileType = cb_selectFileType.getSelectedItem().toString();
-        System.out.println("selected file type: " + selectedFileType);
 
         int result = sourceFileChooser.showOpenDialog(this);
 
@@ -299,8 +296,7 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
             String selectedFilePathString = sourceFileChooser.getSelectedFile().getAbsolutePath();
             selectedFilePathString = sourceFileChooser.getSelectedFile().getAbsolutePath();
             String extension = selectedFilePathString.substring(selectedFilePathString.lastIndexOf(".") + 1, selectedFilePathString.length());
-            System.out.println(extension);
-            System.out.println(selectedFileType);
+
             if (selectedFileType.equals(extension)) {
                 tf_chooseFile.setText(selectedFilePathString);
                 selectedFilePath = new String[]{selectedFilePathString};
@@ -324,13 +320,30 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
 
         Thread readData = new PythonFileReader(this);
         readData.start();
-        System.out.println("done");
 
 
     }//GEN-LAST:event_btnExtractActionPerformed
 
     private void btnRawDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRawDataActionPerformed
-        new EmployeeRawDataView(null, true, output).setVisible(true);
+        try {
+            Runtime r = Runtime.getRuntime();
+            String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/RawEmployeeData.py", selectedFilePath[0]};
+
+            Process p = r.exec(cmd);
+
+            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = input.readLine();
+
+            while ((line = input.readLine()) != null) {
+                output.add(line);
+
+            }
+            System.out.println("output size : " + output.size());
+            new EmployeeRawDataView(null, true, output).setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnRawDataActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
@@ -348,9 +361,9 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                             //                        System.out.println("inside thread");
 //                        new UploaderPopup(ITEmployeeAttributeMapperPanel, main, output);
                             Runtime r = Runtime.getRuntime();
-                            String header=ITEmployeeAttributeMapperPanel.setHeader();
-                            System.out.println(header);
-                            String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/ReplaceHeader_employeeData.py",selectedFilePath[0] ,header};
+                            String header = ITEmployeeAttributeMapperPanel.setHeader();
+
+                            String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/ReplaceHeader_employeeData.py", selectedFilePath[0], header};
                             Process p = r.exec(cmd);
 
                             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -390,16 +403,15 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
             try {
                 Runtime r = Runtime.getRuntime();
                 String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/GetHeader_employeeData.py", selectedFilePath[0]};
-                System.out.println(selectedFilePath[0]);
+
                 Process p = r.exec(cmd);
 
                 BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String line = input.readLine();
+
 //                while ((line = input.readLine()) != null) {
 //                    output.add(line);
-//                    System.out.println(line);
 //                    
-//
 //                }
                 ITEmployeeAttributeMapperPanel = new ITEmployeeAttributeMapperPanel(line, this.employeeDataExtractPanel);
 
