@@ -31,31 +31,39 @@ public class EmployeeRawDataView extends javax.swing.JDialog {
         initComponents();
         center();
         String[] attributes = getColumns(data);
-
+        ArrayList<String> rowData = getData(data);
+        Object[][] res = new Object[rowData.size()][];
+//        rowData.toArray(res);
         DefaultTableModel model = new DefaultTableModel();
 
         jTable1.setModel(model);
         for (int i = 0; i < 12; i++) {
             model.addColumn(attributes[i]);
+            for (int j = 0; j < rowData.size(); j++) {
+                model.addRow(rowData.toArray());
+            }
         }
     }
 
-    public String[] getData(ArrayList<String> data) {
+    public ArrayList<String> getData(ArrayList<String> data) {
 
-        String headers = data.get(0);
+        ArrayList<String> rowData = new ArrayList<>();
+        for (int i = 0; i < data.size() - 1; i++) {
+            String headers = data.get(i);
 
-        String[] dataRows = headers.split(";");
-        for (int i = 0; i < dataRows.length - 1; i++) {
+            String[] dataRows = headers.split(";");
+            for (int j = 0; j < dataRows.length - 1; j++) {
 
-            dataRows[i] = dataRows[i].replace("\"", "");
-            dataRows[i] = dataRows[i].replace("\'", "");
-            dataRows[i] = dataRows[i].replace("[", "");
-            dataRows[i] = dataRows[i].replace("]", "");
-            dataRows[i] = dataRows[i].replace("", "");
+                dataRows[j] = dataRows[j].replace("\"", "");
+                dataRows[j] = dataRows[j].replace("\'", "");
+                dataRows[j] = dataRows[j].replace("[", "");
+                dataRows[j] = dataRows[j].replace("]", "");
+                dataRows[j] = dataRows[j].replace("", "");
+            }
 
+            rowData.add(headers);
         }
-
-        return dataRows;
+        return rowData;
     }
 
     public String[] getColumns(ArrayList<String> data) {
@@ -73,8 +81,6 @@ public class EmployeeRawDataView extends javax.swing.JDialog {
 
             System.out.println("attributes " + attributes[i]);
         }
-//        System.out.println(attributes.length);
-//        return attributes;
         return attributes;
     }
 

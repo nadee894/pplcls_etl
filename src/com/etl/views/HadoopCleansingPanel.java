@@ -204,6 +204,8 @@ public class HadoopCleansingPanel extends javax.swing.JPanel {
 
     private void btnStartCleansingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartCleansingActionPerformed
 
+        
+        
         this.processProgressPanel.removeAll();
         this.processProgressPanel.add(new HadoopEtlProcessPanel(this,this.main) {}, "HadoopEtlProcessPanel", 0);
         this.processProgressPanel.revalidate();
