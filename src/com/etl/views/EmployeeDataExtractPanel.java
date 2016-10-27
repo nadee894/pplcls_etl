@@ -325,24 +325,31 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnExtractActionPerformed
 
     private void btnRawDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRawDataActionPerformed
-        try {
-            Runtime r = Runtime.getRuntime();
-            String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/RawEmployeeData.py", selectedFilePath[0]};
 
-            Process p = r.exec(cmd);
+       output = new ArrayList<>();
+        EmployeeDataExtractPanel employeeDataExtractPanel = this;
 
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line = input.readLine();
+        Thread readData = new PythonFileReaderForRawData(this);
+        readData.start();
 
-            while ((line = input.readLine()) != null) {
-                output.add(line);
-
-            }
-            System.out.println("output size : " + output.size());
-            new EmployeeRawDataView(null, true, output).setVisible(true);
-        } catch (IOException ex) {
-            Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            Runtime r = Runtime.getRuntime();
+//            String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/RawEmployeeData.py", selectedFilePath[0]};
+//
+//            Process p = r.exec(cmd);
+//
+//            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//            String line = input.readLine();
+//
+//            while ((line = input.readLine()) != null) {
+//                output.add(line);
+//
+//            }
+//            System.out.println("output size : " + output.size());
+//            new EmployeeRawDataView(null, true, output).setVisible(true);
+//        } catch (IOException ex) {
+//            Logger.getLogger(EmployeeDataExtractPanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
     }//GEN-LAST:event_btnRawDataActionPerformed
 
@@ -418,6 +425,39 @@ public class EmployeeDataExtractPanel extends javax.swing.JPanel {
                 this.employeeDataExtractPanel.employeeAttributeMapper.removeAll();
                 this.employeeDataExtractPanel.employeeAttributeMapper.add(ITEmployeeAttributeMapperPanel, "ITEmployeeAttributeMapperPanel", 0);
                 this.employeeDataExtractPanel.employeeAttributeMapper.revalidate();
+
+                btnRawData.setVisible(true);
+                lblLoading.setVisible(false);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    class PythonFileReaderForRawData extends Thread {
+
+        private EmployeeDataExtractPanel employeeDataExtractPanel;
+
+        PythonFileReaderForRawData(EmployeeDataExtractPanel employeeDataExtractPanel) {
+            this.employeeDataExtractPanel = employeeDataExtractPanel;
+        }
+
+        public void run() {
+            try {
+                Runtime r = Runtime.getRuntime();
+                String[] cmd = {"python", "D:/Important/Research Final Year/Research on going work/System (ETL)/ETL New Versions/github clone/pplcls_etl/src/com/etl/pythonScripts/RawEmployeeData.py", selectedFilePath[0]};
+
+                Process p = r.exec(cmd);
+
+                BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String line = input.readLine();
+
+                while ((line = input.readLine()) != null) {
+                    output.add(line);
+
+                }
+                
+                new EmployeeRawDataView(null, true, output).setVisible(true);
 
                 btnRawData.setVisible(true);
                 lblLoading.setVisible(false);

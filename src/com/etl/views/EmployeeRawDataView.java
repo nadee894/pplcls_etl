@@ -25,53 +25,57 @@ public class EmployeeRawDataView extends javax.swing.JDialog {
         initComponents();
         center();
     }
-    
+
     public EmployeeRawDataView(java.awt.Frame parent, boolean modal, ArrayList<String> data) {
         super(parent, modal);
         initComponents();
         center();
-        System.out.println("data size " + data.size());
-        String[] attributes = getData(data);
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            System.out.println(attributes[i]);
-        }
-        for (int i = 0; i < data.size(); i++) {
-            
-        }
-        
+        String[] attributes = getColumns(data);
+
         DefaultTableModel model = new DefaultTableModel();
-        JTable table = new JTable(model);
-        for (int i = 0; i < 76; i++) {
-            model.addColumn(getData(data));            
+
+        jTable1.setModel(model);
+        for (int i = 0; i < 12; i++) {
+            model.addColumn(attributes[i]);
         }
     }
-    
+
     public String[] getData(ArrayList<String> data) {
-        
+
         String headers = data.get(0);
-//        for (int i = 0; i < data.size() - 1; i++) {
-//            String[] dataRows = headers.split(";");
-//
-//            dataRows[i] = dataRows[i].replace("\"", "");
-//            dataRows[i] = dataRows[i].replace("\'", "");
-//            dataRows[i] = dataRows[i].replace("[", "");
-//            dataRows[i] = dataRows[i].replace("]", "");
-//            dataRows[i] = dataRows[i].replace("", "");
-//
-//        }
+
+        String[] dataRows = headers.split(";");
+        for (int i = 0; i < dataRows.length - 1; i++) {
+
+            dataRows[i] = dataRows[i].replace("\"", "");
+            dataRows[i] = dataRows[i].replace("\'", "");
+            dataRows[i] = dataRows[i].replace("[", "");
+            dataRows[i] = dataRows[i].replace("]", "");
+            dataRows[i] = dataRows[i].replace("", "");
+
+        }
+
+        return dataRows;
+    }
+
+    public String[] getColumns(ArrayList<String> data) {
+
+        String headers = data.get(0);
+        System.out.println(headers);
         String[] attributes = headers.split(";");
+
         for (int i = 0; i < attributes.length; i++) {
             //cleansing of header attributes
             attributes[i] = attributes[i].replace("\"", "");
             attributes[i] = attributes[i].replace("\'", "");
             attributes[i] = attributes[i].replace("[", "");
             attributes[i] = attributes[i].replace("]", "");
-            
+
             System.out.println("attributes " + attributes[i]);
         }
-        System.out.println(attributes.length);
+//        System.out.println(attributes.length);
+//        return attributes;
         return attributes;
-        
     }
 
     /**
@@ -170,7 +174,7 @@ public class EmployeeRawDataView extends javax.swing.JDialog {
             }
         });
     }
-    
+
     private void center() {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension dimension1 = getSize();
