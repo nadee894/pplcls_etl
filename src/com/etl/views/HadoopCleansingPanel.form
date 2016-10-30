@@ -83,13 +83,19 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jCheckBox1" alignment="0" min="-2" pref="400" max="-2" attributes="0"/>
-                      <Component id="jCheckBox2" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                      <Component id="jCheckBox3" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
+                      <Component id="jCheckBox1" min="-2" pref="400" max="-2" attributes="0"/>
+                      <Component id="jCheckBox4" min="-2" pref="248" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnStartCleansing" min="-2" pref="202" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="220" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="btnStartCleansing" min="-2" pref="202" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jCheckBox2" min="-2" pref="295" max="-2" attributes="0"/>
+                      <Component id="jCheckBox3" min="-2" pref="248" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -98,23 +104,21 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
-                          <Component id="btnStartCleansing" min="-2" pref="56" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="jCheckBox1" min="-2" pref="41" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Component id="jCheckBox2" min="-2" pref="40" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="jCheckBox3" min="-2" pref="46" max="-2" attributes="0"/>
-                      </Group>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jCheckBox1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="jCheckBox2" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jCheckBox4" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="jCheckBox3" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                  <Component id="btnStartCleansing" min="-2" pref="56" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="285" max="32767" attributes="0"/>
+                  <EmptySpace pref="300" max="32767" attributes="0"/>
                   <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" pref="66" max="-2" attributes="0"/>
@@ -153,7 +157,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="652" max="32767" attributes="0"/>
                       <Component id="btnPreviouse" min="-2" pref="99" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnNext" min="-2" pref="96" max="-2" attributes="0"/>
@@ -203,7 +207,7 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Remove Null Values/ Remove Duplicate Values"/>
+            <Property name="text" type="java.lang.String" value="Remove Null Values"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
@@ -222,7 +226,15 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Sort Data"/>
+            <Property name="text" type="java.lang.String" value="Remove Duplicates"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBox4">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Remove Duplicates"/>
           </Properties>
         </Component>
       </SubComponents>
