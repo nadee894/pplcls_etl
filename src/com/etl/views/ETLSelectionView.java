@@ -181,9 +181,14 @@ public class ETLSelectionView extends javax.swing.JDialog {
 
         } else if (rbHadoopEtl.isSelected() == true) {
             this.dispose();
-            this.main.contentPanel.removeAll();
-            this.main.contentPanel.add(new HadoopCleansingPanel(this.main), "HadoopCleansingPanel", 0);
-            this.main.contentPanel.revalidate();
+//            this.main.contentPanel.removeAll();
+//            this.main.contentPanel.add(new HadoopCleansingPanel(this.main), "HadoopCleansingPanel", 0);
+//            this.main.contentPanel.revalidate();
+
+            main.contentPanel.removeAll();
+            main.contentPanel.add(new EmployeeDataExtractPanel(this.main), "EmployeeDataExtractPanel", 0);
+            main.contentPanel.revalidate();
+
         }
     }//GEN-LAST:event_btnOkActionPerformed
 

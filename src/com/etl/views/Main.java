@@ -23,9 +23,10 @@ public class Main extends javax.swing.JFrame {
         int xsize = (int) toolkit.getScreenSize().getWidth();
         int ysize = (int) toolkit.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
-        contentPanel.removeAll();
-        contentPanel.add(new EmployeeDataExtractPanel(this), "EmployeeDataExtractPanel", 0);
-        contentPanel.revalidate();
+        new ETLSelectionView(null, true, this).setVisible(true);
+//        contentPanel.removeAll();
+//        contentPanel.add(new EmployeeDataExtractPanel(this), "EmployeeDataExtractPanel", 0);
+//        contentPanel.revalidate();
         center();
 
     }

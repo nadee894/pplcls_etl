@@ -373,7 +373,10 @@ public class ProjectDataExtractPanel extends javax.swing.JPanel {
                                 BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
                                 String line = input.readLine();
                                 JOptionPane.showMessageDialog(null, "Mapping attributes Succesfully Completed", "People Clues", 1);
-                                new ETLSelectionView(null, true, main).setVisible(true);
+//                                new ETLSelectionView(null, true, main).setVisible(true);
+                                main.contentPanel.removeAll();
+                                main.contentPanel.add(new HadoopCleansingPanel(main), "HadoopCleansingPanel", 0);
+                                main.contentPanel.revalidate();
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
